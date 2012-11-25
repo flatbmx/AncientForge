@@ -1,10 +1,15 @@
 package com.podts.ancientforge;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.podts.ancientforge.prefix.Prefix_Blessed;
+import com.podts.ancientforge.suffix.Suffix_Test;
 
 public class AncientForgePlugin extends JavaPlugin {
 	
@@ -20,6 +25,27 @@ public class AncientForgePlugin extends JavaPlugin {
 	
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String lavel, String[] args) {
+    	
+    	if (cmd.getName().equalsIgnoreCase("test")) {
+    		
+    		if (!(sender instanceof Player))
+    			return true;
+    		
+    		try {
+    		
+    		Player p = (Player) sender;
+    		
+    		CraftItemStack ditem = new CraftItemStack(Material.DIAMOND_SWORD);
+    		
+    		MagicItem item = new MagicItem(ditem, new Prefix_Blessed(), new Suffix_Test());
+    		
+    		p.getInventory().addItem(item.getItemStack());
+    		
+    		} catch (Exception e) {
+    			e.printStackTrace();
+    		}
+    		
+    	}
     	
     	if (cmd.getName().equalsIgnoreCase("name")) {
     		

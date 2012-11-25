@@ -1,5 +1,9 @@
 package com.podts.ancientforge.effect;
 
+import org.bukkit.ChatColor;
+
+import com.podts.ancientforge.NamedItem;
+
 public class Effects {
 	
 	private int damgeincrease;
@@ -66,6 +70,19 @@ public class Effects {
 	
 	public void bumpFindmagicitems(float findmagicitems) {
 		this.findmagicitems += findmagicitems;
+	}
+	
+	public void addLore(NamedItem item) {
+		
+		if (damgeincrease != 0)
+			item.addLore(ChatColor.RED + " Damage Increase: " + damgeincrease);
+		if (damagemodifier != 0)
+			item.addLore(ChatColor.RED + " Damage Increase: " + damagemodifier*100 + "%");
+		if (armorincrease !=0)
+			item.addLore(ChatColor.BLUE + " Armor Increase: " + armorincrease);
+		if (armormodifier != 0)
+			item.addLore(ChatColor.BLUE + " Armor Increase: " + armormodifier*100 + "%");
+		
 	}
 	
 }

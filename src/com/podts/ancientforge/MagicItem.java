@@ -1,12 +1,13 @@
 package com.podts.ancientforge;
 
 import org.apache.commons.lang.WordUtils;
+import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
 import com.podts.ancientforge.namemodifier.ItemPrefix;
 import com.podts.ancientforge.namemodifier.ItemSuffix;
 
-public abstract class MagicItem extends NamedItem {
+public class MagicItem extends NamedItem {
 
 	private ItemPrefix prefix;
 	private ItemSuffix suffix;
@@ -34,17 +35,24 @@ public abstract class MagicItem extends NamedItem {
 	
 	private void constructName() {
 		String result = "";
-		result = getItemStack().toString();
+		result = getItemStack().getType().name();
 		if (prefix != null)
-			result = prefix.getName() + " " + result;
+			result = prefix.getName() + ChatColor.RESET + " " + result;
 		if (suffix != null)
-			result = result + " " + suffix.getName();
+			result = result + ChatColor.RESET + " " + suffix.getName();
 		result = result.replaceAll("_", " ");
 		result = WordUtils.capitalizeFully( result );
 		setName(result);
 	}
 	
 	private void constructLore() {
+		
+		if (hasPrefix()) {
+			prefix.getEffects().addLore(this);
+		}
+		if (hasSuffix()) {
+			suffix.getEffects().addLore(this);
+		}
 		
 	}
 	
@@ -66,6 +74,7 @@ public abstract class MagicItem extends NamedItem {
 		super(item);
 		this.suffix = suffix;
 		constructName();
+		constructLore();
 	}
 	
 	public MagicItem(ItemStack item, ItemPrefix prefix, ItemSuffix suffix) {
@@ -73,6 +82,8 @@ public abstract class MagicItem extends NamedItem {
 		this.prefix = prefix;
 		this.suffix = suffix;
 		constructName();
+		constructLore();
+		
 	}
 	
 }

@@ -23,7 +23,14 @@ public class NameModifier {
 	 * @return the name.
 	 */
 	public String getName() {
-		return color + name;
+		if (hasColor())
+			return color + name;
+		else
+			return name;
+	}
+	
+	public boolean hasColor() {
+		return color != null;
 	}
 	
 	/**
