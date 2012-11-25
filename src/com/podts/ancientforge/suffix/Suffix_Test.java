@@ -5,7 +5,7 @@ import com.podts.ancientforge.namemodifier.ItemSuffix;
 public class Suffix_Test extends ItemSuffix {
 
 	public Suffix_Test() {
-		super("Tst");
+		super("Test");
 		getEffects().setDamgeincrease(3);
 	}
 
