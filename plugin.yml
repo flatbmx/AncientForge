@@ -8,7 +8,7 @@ commands:
    name:
       description: names the item you have on hand.
    whatname:
-      description: tells you waht name the item is.
+      description: tells you what name the item is.
    lore:
       description: sets lore.
    addlore:
