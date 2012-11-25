@@ -9,6 +9,7 @@ public class Prefix_Blessed extends ItemPrefix {
 	public Prefix_Blessed() {
 		super("Blessed", ChatColor.BLUE);
 		getEffects().setArmorincrease(1);
+		getEffects().setDamgeincrease(1);
 	}
 
 }

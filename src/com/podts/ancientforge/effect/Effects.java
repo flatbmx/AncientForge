@@ -75,13 +75,23 @@ public class Effects {
 	public void addLore(NamedItem item) {
 		
 		if (damgeincrease != 0)
-			item.addLore(ChatColor.RED + " Damage Increase: " + damgeincrease);
+			item.addLore(ChatColor.RED + " Damage + : " + damgeincrease);
 		if (damagemodifier != 0)
-			item.addLore(ChatColor.RED + " Damage Increase: " + damagemodifier*100 + "%");
+			item.addLore(ChatColor.RED + " Damage + : " + damagemodifier*100 + "%");
 		if (armorincrease !=0)
-			item.addLore(ChatColor.BLUE + " Armor Increase: " + armorincrease);
+			item.addLore(ChatColor.BLUE + " Armor + : " + armorincrease);
 		if (armormodifier != 0)
-			item.addLore(ChatColor.BLUE + " Armor Increase: " + armormodifier*100 + "%");
+			item.addLore(ChatColor.BLUE + " Armor + : " + armormodifier*100 + "%");
+		
+	}
+	
+	public void merge(Effects other) {
+		
+		bumpDamageIncrease(other.getDamgeincrease());
+		bumpDamagmodifier(other.getDamagemodifier());
+		bumpArmorincrease(other.getArmorincrease());
+		bumpArmormodifier(other.getArmormodifier());
+		bumpFindmagicitems(other.getFindmagicitems());
 		
 	}
 	

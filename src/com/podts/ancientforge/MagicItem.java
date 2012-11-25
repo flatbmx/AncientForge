@@ -4,13 +4,20 @@ import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
 
+import com.podts.ancientforge.effect.Effects;
 import com.podts.ancientforge.namemodifier.ItemPrefix;
 import com.podts.ancientforge.namemodifier.ItemSuffix;
 
 public class MagicItem extends NamedItem {
-
+	
+	private Effects effects;
+	
 	private ItemPrefix prefix;
 	private ItemSuffix suffix;
+	
+	public Effects getEffects() {
+		return effects;
+	}
 	
 	public boolean hasPrefix() {
 		return prefix != null;
@@ -45,13 +52,16 @@ public class MagicItem extends NamedItem {
 	
 	private void constructLore() {
 		
-		if (hasPrefix()) {
-			prefix.getEffects().addLore(this);
-		}
-		if (hasSuffix()) {
-			suffix.getEffects().addLore(this);
-		}
+		effects.addLore(this);
 		
+	}
+	
+	private void mergeEffects() {
+		effects = new Effects();
+		if (hasPrefix())
+			effects.merge(prefix.getEffects());
+		if (hasSuffix())
+			effects.merge(suffix.getEffects());
 	}
 	
 	public MagicItem(ItemStack item) {
@@ -60,6 +70,7 @@ public class MagicItem extends NamedItem {
 	
 	public MagicItem(ItemStack item, String name) {
 		super(item,name);
+		constructName();
 	}
 	
 	public MagicItem(ItemStack item, ItemPrefix prefix) {
@@ -71,6 +82,7 @@ public class MagicItem extends NamedItem {
 	public MagicItem(ItemStack item, ItemSuffix suffix) {
 		super(item);
 		this.suffix = suffix;
+		mergeEffects();
 		constructName();
 		constructLore();
 	}
@@ -79,9 +91,9 @@ public class MagicItem extends NamedItem {
 		super(item);
 		this.prefix = prefix;
 		this.suffix = suffix;
+		mergeEffects();
 		constructName();
 		constructLore();
-		
 	}
 	
 }
