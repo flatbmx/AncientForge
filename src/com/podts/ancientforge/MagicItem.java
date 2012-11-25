@@ -35,13 +35,11 @@ public class MagicItem extends NamedItem {
 	
 	private void constructName() {
 		String result = "";
-		result = getItemStack().getType().name();
+		result = WordUtils.capitalizeFully(getItemStack().getType().name().replaceAll("_", " "));
 		if (prefix != null)
 			result = prefix.getName() + ChatColor.RESET + " " + result;
 		if (suffix != null)
 			result = result + ChatColor.RESET + " " + suffix.getName();
-		result = result.replaceAll("_", " ");
-		result = WordUtils.capitalizeFully( result );
 		setName(result);
 	}
 	
