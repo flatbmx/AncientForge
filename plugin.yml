@@ -1,0 +1,17 @@
+name: AncientForge
+version: 0.01
+main: com.podts.ancientforge.AncientForgePlugin
+author: [flatbmx, Will2233]
+softdepend: [PermissionsEx, Essentials]
+
+commands:
+   name:
+      description: names the item you have on hand.
+   whatname:
+      description: tells you waht name the item is.
+   lore:
+      description: sets lore.
+   addlore:
+      description: adds lore.
+   getlore:
+      description: gets lore.

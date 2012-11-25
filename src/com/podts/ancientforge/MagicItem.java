@@ -1,0 +1,78 @@
+package com.podts.ancientforge;
+
+import org.apache.commons.lang.WordUtils;
+import org.bukkit.inventory.ItemStack;
+
+import com.podts.ancientforge.namemodifier.ItemPrefix;
+import com.podts.ancientforge.namemodifier.ItemSuffix;
+
+public abstract class MagicItem extends NamedItem {
+
+	private ItemPrefix prefix;
+	private ItemSuffix suffix;
+	
+	public boolean hasPrefix() {
+		return prefix != null;
+	}
+	
+	public ItemPrefix getPrefix() {
+		return prefix;
+	}
+	
+	public boolean hasSuffix() {
+		return suffix != null;
+	}
+	
+	public ItemSuffix getSuffix() {
+		return suffix;
+	}
+	
+	public void update() {
+		constructName();
+		constructLore();
+	}
+	
+	private void constructName() {
+		String result = "";
+		result = getItemStack().toString();
+		if (prefix != null)
+			result = prefix.getName() + " " + result;
+		if (suffix != null)
+			result = result + " " + suffix.getName();
+		result = result.replaceAll("_", " ");
+		result = WordUtils.capitalizeFully( result );
+		setName(result);
+	}
+	
+	private void constructLore() {
+		
+	}
+	
+	public MagicItem(ItemStack item) {
+		super(item);
+	}
+	
+	public MagicItem(ItemStack item, String name) {
+		super(item,name);
+	}
+	
+	public MagicItem(ItemStack item, ItemPrefix prefix) {
+		super(item);
+		this.prefix = prefix;
+		constructName();
+	}
+	
+	public MagicItem(ItemStack item, ItemSuffix suffix) {
+		super(item);
+		this.suffix = suffix;
+		constructName();
+	}
+	
+	public MagicItem(ItemStack item, ItemPrefix prefix, ItemSuffix suffix) {
+		super(item);
+		this.prefix = prefix;
+		this.suffix = suffix;
+		constructName();
+	}
+	
+}
