@@ -3,8 +3,15 @@ package com.podts.ancientforge.namemodifier;
 import org.bukkit.ChatColor;
 
 import com.podts.ancientforge.effect.Effects;
+import com.podts.ancientforge.prefix.*;
+import com.podts.ancientforge.suffix.*;
 
 public class NameModifier {
+	
+	public static void initModifiers() {
+		new Prefix_Blessed();
+		new Suffix_OfTheDeciples();
+	}
 	
 	private String name;
 	private ChatColor color;

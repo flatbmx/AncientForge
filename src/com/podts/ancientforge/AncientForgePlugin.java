@@ -8,14 +8,21 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.podts.ancientforge.namemodifier.ItemPrefix;
+import com.podts.ancientforge.namemodifier.ItemSuffix;
+import com.podts.ancientforge.namemodifier.NameModifier;
 import com.podts.ancientforge.prefix.Prefix_Blessed;
-import com.podts.ancientforge.suffix.Suffix_Test;
+import com.podts.ancientforge.suffix.Suffix_OfTheDeciples;
 
 public class AncientForgePlugin extends JavaPlugin {
 	
 	@Override
     public void onEnable(){
         
+		NameModifier.initModifiers();
+		getLogger().info("Loaded " + ItemPrefix.getPrefixs().size() + " Prefixs.");
+		getLogger().info("Loaded " + ItemSuffix.getSuffixs().size() + " Suffixs.");
+		
     }
  
     @Override
@@ -37,7 +44,7 @@ public class AncientForgePlugin extends JavaPlugin {
     		
     		CraftItemStack ditem = new CraftItemStack(Material.DIAMOND_SWORD);
     		
-    		MagicItem item = new MagicItem(ditem, new Prefix_Blessed(), new Suffix_Test());
+    		MagicItem item = new MagicItem(ditem, new Prefix_Blessed(), new Suffix_OfTheDeciples());
     		
     		p.getInventory().addItem(item.getItemStack());
     		
