@@ -41,6 +41,16 @@ public class NamedItem {
 	
 	private CraftItemStack itemstack;
 	
+	private int slot;
+	
+	public int getSlot() {
+		return slot;
+	}
+	
+	public void setSlot(int slot) {
+		this.slot = slot;
+	}
+	
 	public ItemStack getItemStack() {
 		return itemstack;
 	}

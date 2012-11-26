@@ -17,7 +17,7 @@ import com.podts.ancientforge.namemodifier.NameModifier;
 import com.podts.ancientforge.prefix.Prefix_Blessed;
 import com.podts.ancientforge.suffix.Suffix_OfTheDeciples;
 
-public class AncientForgePlugin extends JavaPlugin {
+public class P extends JavaPlugin {
 	
 	private static Logger logger;
 	

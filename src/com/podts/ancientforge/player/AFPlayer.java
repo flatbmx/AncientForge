@@ -1,13 +1,11 @@
 package com.podts.ancientforge.player;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.podts.ancientforge.AncientForgePlugin;
 import com.podts.ancientforge.MagicItem;
 import com.podts.ancientforge.NamedItem;
 import com.podts.ancientforge.effect.Effects;
@@ -26,7 +24,12 @@ public class AFPlayer {
 	
 	private Player bukkitplayer;
 	private Effects effects;
-	private LinkedList<NamedItem> items;
+	private HashMap<Integer,NamedItem> items;
+	private HashMap<Integer,NamedItem> equipment;
+	
+	public HashMap<Integer,NamedItem> getEquipment() {
+		return equipment;
+	}
 	
 	public Player getBukkitPlayer() {
 		return bukkitplayer;
@@ -36,33 +39,72 @@ public class AFPlayer {
 		return effects;
 	}
 	
-	public LinkedList<NamedItem> getItems() {
+	public HashMap<Integer,NamedItem> getItems() {
 		return items;
 	}
 	
 	public AFPlayer(Player p) {
 		
 		this.bukkitplayer = p;
-		this.items = new LinkedList<NamedItem>();
+		this.items = new HashMap<Integer,NamedItem>();
 		this.effects = new Effects();
+		this.equipment = new HashMap<Integer,NamedItem>();
 		players.put(this.getBukkitPlayer().getName(), this);
 		
-		for (ItemStack item : getBukkitPlayer().getInventory().getContents()) {
+		for (int i=0; i < getBukkitPlayer().getInventory().getContents().length; i++) {
+			
+			ItemStack item = getBukkitPlayer().getInventory().getContents()[i];
+			
+			if (item == null)
+				continue;
 			
 			if (item instanceof CraftItemStack) {
 				
 				if (NamedItem.isPluginItem((CraftItemStack) item)) {
-					
-					AncientForgePlugin.getPluginLogger().info("Found a plugin item.");
 					
 					NamedItem nameditem = new NamedItem(item);
 					
 					if (nameditem.hasPrefix() || nameditem.hasSuffix()) {
 						
 						MagicItem magicitem = new MagicItem(item);
-						items.add(magicitem);
-						AncientForgePlugin.getPluginLogger().info("Loaded a magic item");
+						magicitem.setSlot(i);
+						items.put(i, magicitem);
 						
+					}
+					else {
+						nameditem.setSlot(i);
+						items.put(i, nameditem);
+					}
+					
+				}
+				
+			}
+			
+		}
+		
+		for (int i=0; i < getBukkitPlayer().getInventory().getArmorContents().length; i++) {
+			
+			ItemStack item = getBukkitPlayer().getInventory().getArmorContents()[i];
+			
+			if (item == null)
+				return;
+			
+			if (item instanceof CraftItemStack) {
+				
+				if (NamedItem.isPluginItem((CraftItemStack) item)) {
+					
+					NamedItem nameditem = new NamedItem(item);
+					
+					if (nameditem.hasPrefix() || nameditem.hasSuffix()) {
+						
+						MagicItem magicitem = new MagicItem(item);
+						magicitem.setSlot(i);
+						equipment.put(i, magicitem);
+						
+					}
+					else {
+						nameditem.setSlot(i);
+						equipment.put(i,nameditem);
 					}
 					
 				}
