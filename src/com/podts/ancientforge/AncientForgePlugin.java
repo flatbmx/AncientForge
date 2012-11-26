@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.podts.ancientforge.listeners.LoginHandler;
 import com.podts.ancientforge.namemodifier.ItemPrefix;
 import com.podts.ancientforge.namemodifier.ItemSuffix;
 import com.podts.ancientforge.namemodifier.NameModifier;
@@ -28,6 +29,7 @@ public class AncientForgePlugin extends JavaPlugin {
     public void onEnable(){
         
 		logger = getLogger();
+		getServer().getPluginManager().registerEvents(new LoginHandler(), this);
 		
 		NameModifier.initModifiers();
 		getLogger().info("Loaded " + ItemPrefix.getPrefixs().size() + " Prefixs.");

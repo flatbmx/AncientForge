@@ -7,6 +7,7 @@ import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import com.podts.ancientforge.AncientForgePlugin;
 import com.podts.ancientforge.MagicItem;
 import com.podts.ancientforge.NamedItem;
 import com.podts.ancientforge.effect.Effects;
@@ -14,6 +15,10 @@ import com.podts.ancientforge.effect.Effects;
 public class AFPlayer {
 	
 	private static HashMap<String,AFPlayer> players = new HashMap<String,AFPlayer>();
+	
+	public static HashMap<String,AFPlayer> getPlayers() {
+		return players;
+	}
 	
 	public static AFPlayer getPlayer(String name) {
 		return players.get(name);
@@ -48,13 +53,15 @@ public class AFPlayer {
 				
 				if (NamedItem.isPluginItem((CraftItemStack) item)) {
 					
+					AncientForgePlugin.getPluginLogger().info("Found a plugin item.");
+					
 					NamedItem nameditem = new NamedItem(item);
 					
 					if (nameditem.hasPrefix() || nameditem.hasSuffix()) {
 						
 						MagicItem magicitem = new MagicItem(item);
 						items.add(magicitem);
-						
+						AncientForgePlugin.getPluginLogger().info("Loaded a magic item");
 						
 					}
 					
