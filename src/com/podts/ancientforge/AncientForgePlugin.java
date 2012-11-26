@@ -1,5 +1,7 @@
 package com.podts.ancientforge;
 
+import java.util.logging.Logger;
+
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -16,9 +18,17 @@ import com.podts.ancientforge.suffix.Suffix_OfTheDeciples;
 
 public class AncientForgePlugin extends JavaPlugin {
 	
+	private static Logger logger;
+	
+	public static Logger getPluginLogger() {
+		return logger;
+	}
+	
 	@Override
     public void onEnable(){
         
+		logger = getLogger();
+		
 		NameModifier.initModifiers();
 		getLogger().info("Loaded " + ItemPrefix.getPrefixs().size() + " Prefixs.");
 		getLogger().info("Loaded " + ItemSuffix.getSuffixs().size() + " Suffixs.");

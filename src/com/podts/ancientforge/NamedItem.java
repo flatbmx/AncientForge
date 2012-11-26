@@ -10,8 +10,32 @@ import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
+import com.podts.ancientforge.namemodifier.ItemPrefix;
+import com.podts.ancientforge.namemodifier.ItemSuffix;
+
 
 public class NamedItem {
+	
+	public static boolean isPluginItem(CraftItemStack item) {
+		
+		if (item == null)
+			return false;
+		
+		net.minecraft.server.ItemStack stack = item.getHandle();
+		
+		NBTTagCompound tag = stack.tag;
+		
+		if (tag == null)
+			return false;
+		
+        tag = stack.tag.getCompound("display");
+        
+        if (tag == null)
+        	return false;
+        
+        return tag.getBoolean("verify");
+		
+	}
 	
 	private net.minecraft.server.ItemStack mcstack;
 	
@@ -19,6 +43,32 @@ public class NamedItem {
 	
 	public ItemStack getItemStack() {
 		return itemstack;
+	}
+	
+	public boolean hasPrefix() {
+		
+		for (ItemPrefix prefix : ItemPrefix.getPrefixs().values()) {
+			
+			if (getName().startsWith(prefix.getName()))
+				return true;
+			
+		}
+		
+		return false;
+		
+	}
+	
+	public boolean hasSuffix() {
+		
+		for (ItemSuffix suffix : ItemSuffix.getSuffixs().values()) {
+			
+			if (getName().endsWith(suffix.getName()))
+				return true;
+			
+		}
+		
+		return false;
+		
 	}
 	
 	public boolean hasName() {
@@ -177,6 +227,7 @@ public class NamedItem {
 	}
 	
 	public NamedItem(ItemStack item) {
+		
 		itemstack = (CraftItemStack) item;
 		
 		net.minecraft.server.ItemStack stack = itemstack.getHandle();
@@ -193,6 +244,7 @@ public class NamedItem {
 	}
 	
 	public NamedItem(ItemStack item, String name) {
+		
 		itemstack = (CraftItemStack) item;
 		
 		net.minecraft.server.ItemStack stack = itemstack.getHandle();

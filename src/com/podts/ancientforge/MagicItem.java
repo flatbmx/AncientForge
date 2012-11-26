@@ -64,6 +64,11 @@ public class MagicItem extends NamedItem {
 			effects.merge(suffix.getEffects());
 	}
 	
+	public MagicItem(NamedItem item) {
+		super(item.getItemStack());
+		
+	}
+	
 	public MagicItem(ItemStack item) {
 		super(item);
 	}
