@@ -55,7 +55,7 @@ public class NamedItem {
 		return itemstack;
 	}
 	
-	public boolean hasPrefix() {
+	public boolean containsPrefix() {
 		
 		for (ItemPrefix prefix : ItemPrefix.getPrefixs().values()) {
 			
@@ -68,7 +68,7 @@ public class NamedItem {
 		
 	}
 	
-	public boolean hasSuffix() {
+	public boolean containsSuffix() {
 		
 		for (ItemSuffix suffix : ItemSuffix.getSuffixs().values()) {
 			
@@ -126,7 +126,9 @@ public class NamedItem {
         NBTTagCompound tag = mcstack.tag;
         String normal = tag.getCompound("display").getString("Name");
         
-        return normal.substring(ChatColor.RESET.toString().length());
+        if (normal.length() > ChatColor.RESET.toString().length())
+        	return normal.substring(ChatColor.RESET.toString().length());
+        return normal;
         
 	}
 	

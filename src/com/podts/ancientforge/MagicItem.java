@@ -58,29 +58,51 @@ public class MagicItem extends NamedItem {
 	
 	private void mergeEffects() {
 		effects = new Effects();
-		if (hasPrefix())
+		constructModifiers();
+		if (hasPrefix()) {
 			effects.merge(prefix.getEffects());
-		if (hasSuffix())
+		}
+		if (hasSuffix()) {
 			effects.merge(suffix.getEffects());
+		}
+	}
+	
+	private void constructModifiers() {
+		
+		if (containsPrefix()) {
+			
+			prefix = ItemPrefix.getPrefixByItemName(getName());
+			
+		}
+		
+		if (containsSuffix()) {
+			
+			suffix = ItemSuffix.getSuffixByItemName(getName());
+			
+		}
+		
 	}
 	
 	public MagicItem(NamedItem item) {
 		super(item.getItemStack());
-		
+		mergeEffects();
 	}
 	
 	public MagicItem(ItemStack item) {
 		super(item);
+		mergeEffects();
 	}
 	
 	public MagicItem(ItemStack item, String name) {
 		super(item,name);
+		mergeEffects();
 		constructName();
 	}
 	
 	public MagicItem(ItemStack item, ItemPrefix prefix) {
 		super(item);
 		this.prefix = prefix;
+		mergeEffects();
 		constructName();
 	}
 	

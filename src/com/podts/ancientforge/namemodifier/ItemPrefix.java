@@ -18,6 +18,19 @@ public class ItemPrefix extends NameModifier {
 		return (ItemPrefix) prefixs.values().toArray()[ r.nextInt( r.nextInt( prefixs.values().size() ) ) ];
 	}
 	
+	public static ItemPrefix getPrefixByItemName(String name) {
+		
+		for (ItemPrefix prefix : prefixs.values()) {
+			
+			if (name.startsWith(prefix.getName()))
+				return prefix;
+			
+		}
+		
+		return null;
+		
+	}
+	
 	private static void addPrefix(ItemPrefix prefix) {
 		
 		if ( prefixs.containsKey(prefix.getName()) )

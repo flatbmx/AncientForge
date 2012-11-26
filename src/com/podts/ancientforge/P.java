@@ -10,6 +10,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.podts.ancientforge.listeners.DamageHandler;
+import com.podts.ancientforge.listeners.HandHandler;
 import com.podts.ancientforge.listeners.LoginHandler;
 import com.podts.ancientforge.namemodifier.ItemPrefix;
 import com.podts.ancientforge.namemodifier.ItemSuffix;
@@ -30,6 +32,8 @@ public class P extends JavaPlugin {
         
 		logger = getLogger();
 		getServer().getPluginManager().registerEvents(new LoginHandler(), this);
+		getServer().getPluginManager().registerEvents(new DamageHandler(), this);
+		getServer().getPluginManager().registerEvents(new HandHandler(), this);
 		
 		NameModifier.initModifiers();
 		getLogger().info("Loaded " + ItemPrefix.getPrefixs().size() + " Prefixs.");

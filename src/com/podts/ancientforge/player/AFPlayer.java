@@ -43,6 +43,15 @@ public class AFPlayer {
 		return items;
 	}
 	
+	public NamedItem getItem(int slot) {
+		
+		if (slot < 99)
+			return items.get(slot);
+		
+		return equipment.get(slot);
+		
+	}
+	
 	public AFPlayer(Player p) {
 		
 		this.bukkitplayer = p;
@@ -64,11 +73,12 @@ public class AFPlayer {
 					
 					NamedItem nameditem = new NamedItem(item);
 					
-					if (nameditem.hasPrefix() || nameditem.hasSuffix()) {
+					if (nameditem.containsPrefix() || nameditem.containsSuffix()) {
 						
 						MagicItem magicitem = new MagicItem(item);
 						magicitem.setSlot(i);
 						items.put(i, magicitem);
+						getBukkitPlayer().sendMessage("Damage + " + magicitem.getEffects().getDamgeincrease());
 						
 					}
 					else {
@@ -95,11 +105,12 @@ public class AFPlayer {
 					
 					NamedItem nameditem = new NamedItem(item);
 					
-					if (nameditem.hasPrefix() || nameditem.hasSuffix()) {
+					if (nameditem.containsPrefix() || nameditem.containsSuffix()) {
 						
 						MagicItem magicitem = new MagicItem(item);
 						magicitem.setSlot(i);
 						equipment.put(i, magicitem);
+						effects.merge(magicitem.getEffects());
 						
 					}
 					else {
@@ -109,6 +120,20 @@ public class AFPlayer {
 					
 				}
 				
+			}
+			
+		}
+		
+		if ( NamedItem.isPluginItem((CraftItemStack) getBukkitPlayer().getInventory().getContents()[0]) ) {
+			
+			NamedItem item = items.get(0);
+			
+			if (item == null)
+				return;
+			
+			if (item instanceof MagicItem) {
+				MagicItem mageitem = (MagicItem) item;
+				effects.merge(mageitem.getEffects());
 			}
 			
 		}

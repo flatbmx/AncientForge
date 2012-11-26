@@ -6,12 +6,26 @@ import com.podts.ancientforge.NamedItem;
 
 public class Effects {
 	
+	private float damageleft;
 	private int damgeincrease;
 	private float damagemodifier;
 	private int armorincrease;
+	private float armorleft;
 	private float armormodifier;
 	private float findmagicitems;
 
+	public float getDamageleft() {
+		return damageleft;
+	}
+
+	public void setDamageleft(float damageleft) {
+		this.damageleft = damageleft;
+	}
+	
+	public void bumpDamageleft(float damageleft) {
+		this.damageleft += damageleft;
+	}
+	
 	public int getDamgeincrease() {
 		return damgeincrease;
 	}
@@ -34,6 +48,18 @@ public class Effects {
 	
 	public void bumpDamagmodifier(float damagemodifier) {
 		this.damagemodifier += damagemodifier;
+	}
+	
+	public float getArmorleft() {
+		return armorleft;
+	}
+
+	public void setArmorleft(float armorleft) {
+		this.armorleft = armorleft;
+	}
+	
+	public void bumpArmorleft(float armorleft) {
+		this.armorleft += armorleft;
 	}
 	
 	public int getArmorincrease() {
@@ -92,6 +118,16 @@ public class Effects {
 		bumpArmorincrease(other.getArmorincrease());
 		bumpArmormodifier(other.getArmormodifier());
 		bumpFindmagicitems(other.getFindmagicitems());
+		
+	}
+	
+	public void deduct(Effects other) {
+		
+		bumpDamageIncrease(other.getDamgeincrease()*-1);
+		bumpDamagmodifier(other.getDamagemodifier()*-1);
+		bumpArmorincrease(other.getArmorincrease()*-1);
+		bumpArmormodifier(other.getArmormodifier()*-1);
+		bumpFindmagicitems(other.getFindmagicitems()*-1);
 		
 	}
 	

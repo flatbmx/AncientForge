@@ -18,6 +18,19 @@ private static HashMap<String, ItemSuffix> suffixs = new HashMap<String, ItemSuf
 		return (ItemSuffix) suffixs.values().toArray()[ r.nextInt( r.nextInt( suffixs.values().size() ) ) ];
 	}
 	
+	public static ItemSuffix getSuffixByItemName(String name) {
+		
+		for (ItemSuffix suffix : suffixs.values()) {
+			
+			if (name.endsWith(suffix.getName()))
+				return suffix;
+			
+		}
+		
+		return null;
+		
+	}
+	
 	private static void addSuffix(ItemSuffix suffix) {
 		
 		if ( suffixs.containsKey(suffix.getName()) )
