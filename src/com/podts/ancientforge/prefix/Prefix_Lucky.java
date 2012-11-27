@@ -8,7 +8,7 @@ public class Prefix_Lucky extends ItemPrefix {
 
 	public Prefix_Lucky() {
 		super("Lucky", ChatColor.GOLD);
-		getEffects().setFindmagicitems(.05f);
+		getEffects().setFindmagicitems(.02f);
 	}
 
 }

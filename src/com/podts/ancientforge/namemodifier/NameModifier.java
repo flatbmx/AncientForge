@@ -13,9 +13,13 @@ public class NameModifier {
 		new Prefix_Blessed();
 		new Prefix_Barbarians();
 		new Prefix_Lucky();
+		new Prefix_Damaged();
+		new Prefix_Enforced();
 		
 		new Suffix_OfTheDeciples();
 		new Suffix_OfTheReckless();
+		new Suffix_OfTheFortunate();
+		new Suffix_OfMalice();
 		
 	}
 	

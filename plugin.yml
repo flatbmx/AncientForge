@@ -1,19 +1,9 @@
 name: AncientForge
-version: 0.04
+version: 0.05
 main: com.podts.ancientforge.P
 author: [flatbmx, Will2233]
 softdepend: [PermissionsEx, Essentials]
 
 commands:
-   name:
-      description: names the item you have on hand.
-   whatname:
-      description: tells you what name the item is.
-   lore:
-      description: sets lore.
-   addlore:
-      description: adds lore.
-   getlore:
-      description: gets lore.
-   test:
-      description: tests prefixs suffixs.
+   magicitem:
+      description: Gives person a random magic item.

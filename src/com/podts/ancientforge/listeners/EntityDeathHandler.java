@@ -3,6 +3,7 @@ package com.podts.ancientforge.listeners;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Wither;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -34,9 +35,13 @@ public class EntityDeathHandler implements Listener {
 		
 		AFPlayer afp = AFPlayer.getPlayer(bukkitkiller.getName());
 		
-		if (P.getRandom().nextFloat() + afp.getEffects().getFindmagicitems() > .2f ) {
+		float droprate = .02f;
+		
+		if (monster instanceof Wither)
+			droprate = .3f;
+		
+		if (P.getRandom().nextFloat() + afp.getEffects().getFindmagicitems() > 1-droprate ) {
 			
-			bukkitkiller.sendMessage("The monster dropped a magical item");
 			MagicItem item = MagicItem.getRandomeMagicItem();
 			Item worlditem = monster.getWorld().dropItemNaturally(monster.getLocation(), item.getItemStack());
 			worlditem.setItemStack(item.getItemStack());

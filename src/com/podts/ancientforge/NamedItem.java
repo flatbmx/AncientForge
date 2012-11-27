@@ -23,6 +23,9 @@ public class NamedItem {
 		
 		net.minecraft.server.ItemStack stack = item.getHandle();
 		
+		if (stack == null)
+			return false;
+		
 		NBTTagCompound tag = stack.tag;
 		
 		if (tag == null)

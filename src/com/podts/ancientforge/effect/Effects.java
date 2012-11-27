@@ -110,7 +110,9 @@ public class Effects {
 			item.addLore(ChatColor.BLUE + " Armor + : " + armorincrease);
 		if (armormodifier != 0)
 			item.addLore(ChatColor.BLUE + " Armor + : " + armormodifier*100 + "%");
-		
+		if (findmagicitems != 0)
+			item.addLore(ChatColor.GOLD + " Magic Drop Rate + : " + findmagicitems*100 + "%");
+			
 	}
 	
 	public void merge(Effects other) {

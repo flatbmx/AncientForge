@@ -14,17 +14,16 @@ public class MagicItem extends NamedItem {
 	
 	public static MagicItem getRandomeMagicItem() {
 		
-		Material[] itemids = {Material.DIAMOND_SWORD,Material.DIAMOND_AXE,Material.DIAMOND_SPADE,
+		Material[] itemids = {Material.DIAMOND_SWORD,Material.DIAMOND_AXE,
 				Material.DIAMOND_HELMET,Material.DIAMOND_CHESTPLATE,Material.DIAMOND_LEGGINGS,Material.DIAMOND_BOOTS};
 		
 		CraftItemStack stack = new CraftItemStack( itemids[P.getRandom().nextInt(itemids.length-1)] );
 		
-		boolean prefix = P.getRandom().nextBoolean();
-		boolean suffix = P.getRandom().nextBoolean();
+		int result = P.getRandom().nextInt(3);
 		
-		if (prefix && suffix)
+		if (result == 0)
 			return new MagicItem(stack,ItemPrefix.getRandomPrefix());
-		else if (!prefix && suffix)
+		else if (result == 1)
 			return new MagicItem(stack,ItemSuffix.getRandomPrefix());
 		else
 			return new MagicItem(stack,ItemPrefix.getRandomPrefix(),ItemSuffix.getRandomPrefix());
