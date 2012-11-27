@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
+import com.podts.ancientforge.P;
 import com.podts.ancientforge.player.AFPlayer;
 
 public class DamageHandler implements Listener {
@@ -37,7 +38,7 @@ public class DamageHandler implements Listener {
 					afp.getEffects().setDamageleft( afp.getEffects().getDamageleft() - (int) afp.getEffects().getDamageleft() );
 				}
 					
-				damageamount = amount;
+				damageamount += amount;
 				
 			}
 			
@@ -78,6 +79,8 @@ public class DamageHandler implements Listener {
 		
 		if (damageamount < 1)
 			damageamount = 0;
+		
+		P.getPluginLogger().info(event.getDamage() + " to " + damageamount);
 		
 		event.setDamage(damageamount);
 		

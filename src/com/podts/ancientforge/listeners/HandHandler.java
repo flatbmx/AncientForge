@@ -35,6 +35,7 @@ public class HandHandler implements Listener {
 				
 				MagicItem magicitem = new MagicItem(newitem);
 				
+				magicitem.update();
 				afp.setWeapon(magicitem);
 				afp.getEffects().merge(afp.getWeaopn().getEffects());
 				

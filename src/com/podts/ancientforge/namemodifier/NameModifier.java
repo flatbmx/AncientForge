@@ -11,6 +11,7 @@ public class NameModifier {
 	public static void initModifiers() {
 		new Prefix_Blessed();
 		new Suffix_OfTheDeciples();
+		new Suffix_OfTheReckless();
 	}
 	
 	private String name;

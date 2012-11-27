@@ -154,6 +154,14 @@ public class NamedItem {
 		
 	}
 	
+	public void clearLore() {
+		
+		NBTTagCompound tag = mcstack.tag.getCompound("display");
+		NBTTagList list = new NBTTagList();
+		tag.set("Lore",list);
+		
+	}
+	
 	public void addLore(String lore) {
 		    	
 		NBTTagCompound tag = mcstack.tag.getCompound("display");

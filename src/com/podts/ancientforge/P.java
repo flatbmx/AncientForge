@@ -18,7 +18,7 @@ import com.podts.ancientforge.namemodifier.ItemSuffix;
 import com.podts.ancientforge.namemodifier.NameModifier;
 import com.podts.ancientforge.player.AFPlayer;
 import com.podts.ancientforge.prefix.Prefix_Blessed;
-import com.podts.ancientforge.suffix.Suffix_OfTheDeciples;
+import com.podts.ancientforge.suffix.Suffix_OfTheReckless;
 
 public class P extends JavaPlugin {
 	
@@ -65,7 +65,7 @@ public class P extends JavaPlugin {
     		
     		CraftItemStack ditem = new CraftItemStack(Material.DIAMOND_SWORD);
     		
-    		MagicItem item = new MagicItem(ditem, new Prefix_Blessed(), new Suffix_OfTheDeciples());
+    		MagicItem item = new MagicItem(ditem, new Prefix_Blessed(), new Suffix_OfTheReckless());
     		
     		p.getInventory().addItem(item.getItemStack());
     		

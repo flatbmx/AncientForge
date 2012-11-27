@@ -100,6 +100,8 @@ public class Effects {
 	
 	public void addLore(NamedItem item) {
 		
+		item.clearLore();
+		
 		if (damgeincrease != 0)
 			item.addLore(ChatColor.RED + " Damage + : " + damgeincrease);
 		if (damagemodifier != 0)
