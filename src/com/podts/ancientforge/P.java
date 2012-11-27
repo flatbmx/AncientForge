@@ -16,6 +16,7 @@ import com.podts.ancientforge.listeners.LoginHandler;
 import com.podts.ancientforge.namemodifier.ItemPrefix;
 import com.podts.ancientforge.namemodifier.ItemSuffix;
 import com.podts.ancientforge.namemodifier.NameModifier;
+import com.podts.ancientforge.player.AFPlayer;
 import com.podts.ancientforge.prefix.Prefix_Blessed;
 import com.podts.ancientforge.suffix.Suffix_OfTheDeciples;
 
@@ -38,6 +39,10 @@ public class P extends JavaPlugin {
 		NameModifier.initModifiers();
 		getLogger().info("Loaded " + ItemPrefix.getPrefixs().size() + " Prefixs.");
 		getLogger().info("Loaded " + ItemSuffix.getSuffixs().size() + " Suffixs.");
+		
+		for (Player p : getServer().getOnlinePlayers()) {
+			new AFPlayer(p);
+		}
 		
     }
  

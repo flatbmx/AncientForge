@@ -37,6 +37,12 @@ public class NamedItem {
 		
 	}
 	
+	public boolean isMagical() {
+		if (containsPrefix() || containsSuffix())
+			return true;
+		return false;
+	}
+	
 	private net.minecraft.server.ItemStack mcstack;
 	
 	private CraftItemStack itemstack;

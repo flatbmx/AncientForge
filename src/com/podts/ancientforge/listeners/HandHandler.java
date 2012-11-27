@@ -8,7 +8,6 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 
 import com.podts.ancientforge.MagicItem;
 import com.podts.ancientforge.NamedItem;
-import com.podts.ancientforge.P;
 import com.podts.ancientforge.player.AFPlayer;
 
 public class HandHandler implements Listener {
@@ -21,32 +20,23 @@ public class HandHandler implements Listener {
 		Player bukkitplayer = event.getPlayer();
 		AFPlayer afp = AFPlayer.getPlayer(bukkitplayer.getName());
 		int newslot = event.getNewSlot();
-		int oldslot = event.getPreviousSlot();
 		
-		if ( NamedItem.isPluginItem((CraftItemStack) bukkitplayer.getInventory().getContents()[oldslot]) ) {
-			
-			// Take Away item effects from the player.
-			NamedItem olditem = afp.getItem(oldslot);
-			if (olditem instanceof MagicItem) {
-				
-				MagicItem magicitem = (MagicItem) olditem;
-				
-				P.getPluginLogger().info("deducted.");
-				afp.getEffects().deduct(magicitem.getEffects());
-				
-			}
-			
+		if (afp.getWeaopn() != null) {
+			afp.getEffects().deduct(afp.getWeaopn().getEffects());
+			afp.setWeapon(null);
 		}
 		
 		if (NamedItem.isPluginItem((CraftItemStack) bukkitplayer.getInventory().getContents()[newslot])) {
 			
 			// Add new items effects to player.
-			NamedItem newitem = afp.getItem(newslot);
-			if (newitem instanceof MagicItem) {
+			NamedItem newitem = new NamedItem((CraftItemStack) bukkitplayer.getInventory().getContents()[newslot]);
+			
+			if (newitem.isMagical()) {
 				
-				MagicItem magicitem = (MagicItem) newitem;
+				MagicItem magicitem = new MagicItem(newitem);
 				
-				afp.getEffects().merge(magicitem.getEffects());
+				afp.setWeapon(magicitem);
+				afp.getEffects().merge(afp.getWeaopn().getEffects());
 				
 			}
 			

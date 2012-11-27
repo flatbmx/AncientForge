@@ -24,7 +24,7 @@ public class AFPlayer {
 	
 	private Player bukkitplayer;
 	private Effects effects;
-	private HashMap<Integer,NamedItem> items;
+	private MagicItem weapon;
 	private HashMap<Integer,NamedItem> equipment;
 	
 	public HashMap<Integer,NamedItem> getEquipment() {
@@ -39,52 +39,34 @@ public class AFPlayer {
 		return effects;
 	}
 	
-	public HashMap<Integer,NamedItem> getItems() {
-		return items;
+	public MagicItem getWeaopn() {
+		return weapon;
 	}
 	
-	public NamedItem getItem(int slot) {
-		
-		if (slot < 99)
-			return items.get(slot);
-		
-		return equipment.get(slot);
-		
+	public void setWeapon(MagicItem item) {
+		this.weapon = item;
 	}
 	
 	public AFPlayer(Player p) {
 		
 		this.bukkitplayer = p;
-		this.items = new HashMap<Integer,NamedItem>();
 		this.effects = new Effects();
 		this.equipment = new HashMap<Integer,NamedItem>();
 		players.put(this.getBukkitPlayer().getName(), this);
 		
-		for (int i=0; i < getBukkitPlayer().getInventory().getContents().length; i++) {
+		CraftItemStack hand = (CraftItemStack) getBukkitPlayer().getItemInHand();
+		
+		if (hand != null) {
 			
-			ItemStack item = getBukkitPlayer().getInventory().getContents()[i];
-			
-			if (item == null)
-				continue;
-			
-			if (item instanceof CraftItemStack) {
+			if (NamedItem.isPluginItem(hand)) {
 				
-				if (NamedItem.isPluginItem((CraftItemStack) item)) {
+				NamedItem ni = new NamedItem(hand);
+				
+				if (ni.containsPrefix() || ni.containsSuffix()) {
 					
-					NamedItem nameditem = new NamedItem(item);
-					
-					if (nameditem.containsPrefix() || nameditem.containsSuffix()) {
-						
-						MagicItem magicitem = new MagicItem(item);
-						magicitem.setSlot(i);
-						items.put(i, magicitem);
-						getBukkitPlayer().sendMessage("Damage + " + magicitem.getEffects().getDamgeincrease());
-						
-					}
-					else {
-						nameditem.setSlot(i);
-						items.put(i, nameditem);
-					}
+					MagicItem magicitem = new MagicItem(ni);
+					weapon = magicitem;
+					effects.merge(magicitem.getEffects());
 					
 				}
 				
@@ -120,20 +102,6 @@ public class AFPlayer {
 					
 				}
 				
-			}
-			
-		}
-		
-		if ( NamedItem.isPluginItem((CraftItemStack) getBukkitPlayer().getInventory().getContents()[0]) ) {
-			
-			NamedItem item = items.get(0);
-			
-			if (item == null)
-				return;
-			
-			if (item instanceof MagicItem) {
-				MagicItem mageitem = (MagicItem) item;
-				effects.merge(mageitem.getEffects());
 			}
 			
 		}
