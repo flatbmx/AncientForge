@@ -2,6 +2,8 @@ package com.podts.ancientforge;
 
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.inventory.ItemStack;
 
 import com.podts.ancientforge.effect.Effects;
@@ -9,6 +11,25 @@ import com.podts.ancientforge.namemodifier.ItemPrefix;
 import com.podts.ancientforge.namemodifier.ItemSuffix;
 
 public class MagicItem extends NamedItem {
+	
+	public static MagicItem getRandomeMagicItem() {
+		
+		Material[] itemids = {Material.DIAMOND_SWORD,Material.DIAMOND_AXE,Material.DIAMOND_SPADE,
+				Material.DIAMOND_HELMET,Material.DIAMOND_CHESTPLATE,Material.DIAMOND_LEGGINGS,Material.DIAMOND_BOOTS};
+		
+		CraftItemStack stack = new CraftItemStack( itemids[P.getRandom().nextInt(itemids.length-1)] );
+		
+		boolean prefix = P.getRandom().nextBoolean();
+		boolean suffix = P.getRandom().nextBoolean();
+		
+		if (prefix && suffix)
+			return new MagicItem(stack,ItemPrefix.getRandomPrefix());
+		else if (!prefix && suffix)
+			return new MagicItem(stack,ItemSuffix.getRandomPrefix());
+		else
+			return new MagicItem(stack,ItemPrefix.getRandomPrefix(),ItemSuffix.getRandomPrefix());
+		
+	}
 	
 	private Effects effects;
 	

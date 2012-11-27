@@ -15,7 +15,10 @@ private static HashMap<String, ItemSuffix> suffixs = new HashMap<String, ItemSuf
 	}
 	
 	public static ItemSuffix getRandomPrefix() {
-		return (ItemSuffix) suffixs.values().toArray()[P.getRandom().nextInt(suffixs.size()-1)];
+		int result = P.getRandom().nextInt(suffixs.size());
+		if (result < 0)
+			result = 0;
+		return (ItemSuffix) suffixs.values().toArray()[result];
 	}
 	
 	public static ItemSuffix getSuffixByItemName(String name) {
