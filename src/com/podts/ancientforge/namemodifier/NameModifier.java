@@ -9,9 +9,14 @@ import com.podts.ancientforge.suffix.*;
 public class NameModifier {
 	
 	public static void initModifiers() {
+		
 		new Prefix_Blessed();
+		new Prefix_Barbarians();
+		new Prefix_Lucky();
+		
 		new Suffix_OfTheDeciples();
 		new Suffix_OfTheReckless();
+		
 	}
 	
 	private String name;
