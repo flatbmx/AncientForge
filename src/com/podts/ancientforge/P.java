@@ -1,5 +1,6 @@
 package com.podts.ancientforge;
 
+import java.util.Random;
 import java.util.logging.Logger;
 
 import org.bukkit.Material;
@@ -23,15 +24,21 @@ import com.podts.ancientforge.suffix.Suffix_OfTheReckless;
 public class P extends JavaPlugin {
 	
 	private static Logger logger;
+	private static Random random;
 	
 	public static Logger getPluginLogger() {
 		return logger;
+	}
+	
+	public static Random getRandom() {
+		return random;
 	}
 	
 	@Override
     public void onEnable(){
         
 		logger = getLogger();
+		random = new Random();
 		getServer().getPluginManager().registerEvents(new LoginHandler(), this);
 		getServer().getPluginManager().registerEvents(new DamageHandler(), this);
 		getServer().getPluginManager().registerEvents(new HandHandler(), this);

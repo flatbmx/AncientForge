@@ -1,9 +1,10 @@
 package com.podts.ancientforge.namemodifier;
 
 import java.util.HashMap;
-import java.util.Random;
 
 import org.bukkit.ChatColor;
+
+import com.podts.ancientforge.P;
 
 public class ItemPrefix extends NameModifier {
 	
@@ -14,8 +15,7 @@ public class ItemPrefix extends NameModifier {
 	}
 	
 	public static ItemPrefix getRandomPrefix() {
-		Random r = new Random();
-		return (ItemPrefix) prefixs.values().toArray()[ r.nextInt( r.nextInt( prefixs.values().size() ) ) ];
+		return (ItemPrefix) prefixs.values().toArray()[P.getRandom().nextInt(prefixs.size()-1)];
 	}
 	
 	public static ItemPrefix getPrefixByItemName(String name) {
