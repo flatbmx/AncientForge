@@ -7,7 +7,7 @@ import com.podts.ancientforge.namemodifier.ItemPrefix;
 public class Prefix_Barbarians extends ItemPrefix {
 
 	public Prefix_Barbarians() {
-		super("Barbarians",ChatColor.DARK_GRAY);
+		super("Barbarian's",ChatColor.DARK_GRAY);
 		getEffects().setDamagemodifier(.150f);
 	}
 
