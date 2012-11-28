@@ -9,7 +9,6 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.podts.ancientforge.MagicItem;
 import com.podts.ancientforge.NamedItem;
-import com.podts.ancientforge.P;
 import com.podts.ancientforge.effect.AFPotionEffect;
 import com.podts.ancientforge.effect.Effects;
 
@@ -58,9 +57,9 @@ public class AFPlayer {
 	
 	public void updateEffects() {
 		
-		P.getPluginLogger().info("updating effects.");
-		
 		CraftItemStack hand = (CraftItemStack) getBukkitPlayer().getItemInHand();
+		
+		removePotionEffects();
 		
 		if (hand != null) {
 			
@@ -85,8 +84,6 @@ public class AFPlayer {
 			
 		}
 		
-		removePotionEffects();
-		
 		if (getEffects().getWalkspeed() > 0) {
 			AFPotionEffect e = new AFPotionEffect(PotionEffectType.SPEED, (int) getEffects().getWalkspeed());
 			getBukkitPlayer().addPotionEffect(e);
@@ -101,6 +98,7 @@ public class AFPlayer {
 			
 			if (e instanceof AFPotionEffect) {
 				getBukkitPlayer().removePotionEffect(e.getType());
+				potioneffects.remove(e);
 			}
 			
 		}

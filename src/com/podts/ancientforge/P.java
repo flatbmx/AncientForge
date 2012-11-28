@@ -20,8 +20,13 @@ import com.podts.ancientforge.player.AFPlayer;
 
 public class P extends JavaPlugin {
 	
+	private static P instance;
 	private static Logger logger;
 	private static Random random;
+	
+	public static P getPluginInstance() {
+		return instance;
+	}
 	
 	public static Logger getPluginLogger() {
 		return logger;
@@ -34,6 +39,7 @@ public class P extends JavaPlugin {
 	@Override
     public void onEnable(){
         
+		instance = this;
 		logger = getLogger();
 		random = new Random();
 		getServer().getPluginManager().registerEvents(new LoginHandler(), this);

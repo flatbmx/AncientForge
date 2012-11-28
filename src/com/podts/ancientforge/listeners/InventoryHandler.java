@@ -1,5 +1,6 @@
 package com.podts.ancientforge.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
@@ -8,11 +9,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.inventory.ItemStack;
 
 import com.podts.ancientforge.MagicItem;
 import com.podts.ancientforge.NamedItem;
+import com.podts.ancientforge.P;
+import com.podts.ancientforge.effect.CreativeArmorCheck;
 import com.podts.ancientforge.player.AFPlayer;
 
 public class InventoryHandler implements Listener {
@@ -54,7 +55,7 @@ public class InventoryHandler implements Listener {
 		case CRAFTING:
 			if (!(event.getSlot() >= 36 && event.getSlot() <= 39))
 				break;
-			if (event.getCursor().equals(Material.AIR) && event.getCurrentItem().equals(Material.AIR))
+			if (event.getCursor().getType().equals(Material.AIR) && event.getCurrentItem().getType().equals(Material.AIR))
 				break;
 			CraftItemStack stack;
 			
@@ -69,6 +70,7 @@ public class InventoryHandler implements Listener {
 						
 						MagicItem mi = new MagicItem(ni);
 						afp.getEffects().merge(mi.getEffects());
+						
 					}
 					
 				}
@@ -94,69 +96,15 @@ public class InventoryHandler implements Listener {
 			break;
 			
 		case PLAYER:
+			if (!(event.getSlot() >= 5 && event.getSlot() <= 8))
+				break;
+			
+			Bukkit.getScheduler().scheduleSyncDelayedTask(P.getPluginInstance(), new CreativeArmorCheck(p, event.getSlot(),event.getCurrentItem()),1L);
 			break;
 			
 		default:
 			break;
 		
-		}
-		
-	}
-	
-	@EventHandler
-	public void OnInventoryCloseEvent(InventoryCloseEvent event) {
-		
-		if (event.getPlayer() == null)
-			return;
-		if (!(event.getPlayer() instanceof Player))
-			return;
-		
-		Player player = (Player) event.getPlayer();
-		AFPlayer afp = AFPlayer.getPlayer(player.getName());
-		
-		for (NamedItem item : afp.getEquipment().values()) {
-			
-			if (item instanceof MagicItem) {
-				
-				MagicItem mageitem = (MagicItem) item;
-				afp.getEffects().deduct(mageitem.getEffects());
-				
-			}
-			
-		}
-		
-		afp.getEquipment().clear();
-		
-		for (int i=0; i < player.getInventory().getArmorContents().length; i++) {
-			
-			ItemStack item = player.getInventory().getArmorContents()[i];
-			
-			if (item == null)
-				return;
-			
-			if (item instanceof CraftItemStack) {
-				
-				if (NamedItem.isPluginItem((CraftItemStack) item)) {
-					
-					NamedItem nameditem = new NamedItem(item);
-					
-					if (nameditem.containsPrefix() || nameditem.containsSuffix()) {
-						
-						MagicItem magicitem = new MagicItem(item);
-						magicitem.setSlot(i);
-						afp.getEquipment().put(i, magicitem);
-						afp.getEffects().merge(magicitem.getEffects());
-						
-					}
-					else {
-						nameditem.setSlot(i);
-						afp.getEquipment().put(i,nameditem);
-					}
-					
-				}
-				
-			}
-			
 		}
 		
 	}
