@@ -22,6 +22,7 @@ public class NameModifier {
 		new Suffix_OfTheFortunate();
 		new Suffix_OfMalice();
 		new Suffix_OfTheLeach();
+		new Suffix_OfTheRabbit();
 		
 	}
 	
