@@ -15,11 +15,13 @@ public class NameModifier {
 		new Prefix_Lucky();
 		new Prefix_Damaged();
 		new Prefix_Enforced();
+		new Prefix_Bloody();
 		
 		new Suffix_OfTheDeciples();
 		new Suffix_OfTheReckless();
 		new Suffix_OfTheFortunate();
 		new Suffix_OfMalice();
+		new Suffix_OfTheLeach();
 		
 	}
 	

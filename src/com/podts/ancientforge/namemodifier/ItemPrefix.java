@@ -16,8 +16,6 @@ public class ItemPrefix extends NameModifier {
 	
 	public static ItemPrefix getRandomPrefix() {
 		int result = P.getRandom().nextInt(prefixs.size());
-		if (result < 0)
-			result = 0;
 		return (ItemPrefix) prefixs.values().toArray()[result];
 	}
 	

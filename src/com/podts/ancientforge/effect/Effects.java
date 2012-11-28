@@ -6,6 +6,8 @@ import com.podts.ancientforge.NamedItem;
 
 public class Effects {
 	
+	private float lifesteal;
+	private float lifestealleft;
 	private float damageleft;
 	private int damgeincrease;
 	private float damagemodifier;
@@ -14,6 +16,30 @@ public class Effects {
 	private float armormodifier;
 	private float findmagicitems;
 
+	public float getLifesteal() {
+		return lifesteal;
+	}
+
+	public void setLifesteal(float lifesteal) {
+		this.lifesteal = lifesteal;
+	}
+	
+	public void bumpLifesteal(float lifesteal) {
+		this.lifesteal += lifesteal;
+	}
+	
+	public float getLifestealleft() {
+		return lifestealleft;
+	}
+
+	public void setLifestealleft(float lifestealleft) {
+		this.lifestealleft = lifestealleft;
+	}
+	
+	public void bumpLifestealleft(float lifestealleft) {
+		this.lifestealleft += lifestealleft;
+	}
+	
 	public float getDamageleft() {
 		return damageleft;
 	}
@@ -102,21 +128,24 @@ public class Effects {
 		
 		item.clearLore();
 		
+		if (lifesteal != 0)
+			item.addLore(ChatColor.DARK_RED + "Life Steal + : " + lifesteal*100 + "%");
 		if (damgeincrease != 0)
-			item.addLore(ChatColor.RED + " Damage + : " + damgeincrease);
+			item.addLore(ChatColor.RED + "Damage + : " + damgeincrease);
 		if (damagemodifier != 0)
-			item.addLore(ChatColor.RED + " Damage + : " + damagemodifier*100 + "%");
+			item.addLore(ChatColor.RED + "Damage + : " + damagemodifier*100 + "%");
 		if (armorincrease !=0)
-			item.addLore(ChatColor.BLUE + " Armor + : " + armorincrease);
+			item.addLore(ChatColor.BLUE + "Armor + : " + armorincrease);
 		if (armormodifier != 0)
-			item.addLore(ChatColor.BLUE + " Armor + : " + armormodifier*100 + "%");
+			item.addLore(ChatColor.BLUE + "Armor + : " + armormodifier*100 + "%");
 		if (findmagicitems != 0)
-			item.addLore(ChatColor.GOLD + " Magic Drop Rate + : " + findmagicitems*100 + "%");
-			
+			item.addLore(ChatColor.GOLD + "Magic Drop Rate + : " + findmagicitems*100 + "%");
+		
 	}
 	
 	public void merge(Effects other) {
 		
+		bumpLifesteal(other.getLifesteal());
 		bumpDamageIncrease(other.getDamgeincrease());
 		bumpDamagmodifier(other.getDamagemodifier());
 		bumpArmorincrease(other.getArmorincrease());
@@ -127,6 +156,7 @@ public class Effects {
 	
 	public void deduct(Effects other) {
 		
+		bumpLifesteal(other.getLifesteal()*-1);
 		bumpDamageIncrease(other.getDamgeincrease()*-1);
 		bumpDamagmodifier(other.getDamagemodifier()*-1);
 		bumpArmorincrease(other.getArmorincrease()*-1);

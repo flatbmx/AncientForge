@@ -45,6 +45,20 @@ public class DamageHandler implements Listener {
 				damageamount += afp.getEffects().getDamgeincrease();
 			}
 			
+			if (afp.getEffects().getLifesteal() > 0) {
+				
+				float fheal = damageamount*afp.getEffects().getLifesteal();
+				int iheal = (int) fheal;
+				afp.getEffects().bumpDamageleft(fheal-iheal);
+				if (afp.getEffects().getLifestealleft() > 1) {
+					iheal += (int) afp.getEffects().getLifestealleft();
+					afp.getEffects().bumpLifestealleft((int) afp.getEffects().getLifestealleft()*-1);
+				}
+				
+				attacker.setHealth(attacker.getHealth() + iheal);
+				
+			}
+			
 		}
 		
 		// If the entity that is getting hurt is a player.

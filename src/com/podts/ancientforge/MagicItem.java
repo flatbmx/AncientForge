@@ -15,15 +15,17 @@ public class MagicItem extends NamedItem {
 	public static MagicItem getRandomeMagicItem() {
 		
 		Material[] itemids = {Material.DIAMOND_SWORD,Material.DIAMOND_AXE,
-				Material.DIAMOND_HELMET,Material.DIAMOND_CHESTPLATE,Material.DIAMOND_LEGGINGS,Material.DIAMOND_BOOTS};
+				Material.DIAMOND_HELMET,Material.DIAMOND_CHESTPLATE,Material.DIAMOND_LEGGINGS,Material.DIAMOND_BOOTS,
+				Material.IRON_SWORD,Material.IRON_AXE,Material.IRON_HELMET,Material.IRON_CHESTPLATE,Material.IRON_LEGGINGS,
+				Material.IRON_BOOTS};
 		
-		CraftItemStack stack = new CraftItemStack( itemids[P.getRandom().nextInt(itemids.length-1)] );
+		CraftItemStack stack = new CraftItemStack( itemids[P.getRandom().nextInt(itemids.length)] );
 		
-		int result = P.getRandom().nextInt(3);
+		int result = P.getRandom().nextInt(100);
 		
-		if (result == 0)
+		if (result < 40)
 			return new MagicItem(stack,ItemPrefix.getRandomPrefix());
-		else if (result == 1)
+		else if (result < 80)
 			return new MagicItem(stack,ItemSuffix.getRandomPrefix());
 		else
 			return new MagicItem(stack,ItemPrefix.getRandomPrefix(),ItemSuffix.getRandomPrefix());
