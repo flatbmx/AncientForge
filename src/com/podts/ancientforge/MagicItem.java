@@ -126,6 +126,7 @@ public class MagicItem extends NamedItem {
 		this.prefix = prefix;
 		mergeEffects();
 		constructName();
+		constructLore();
 	}
 	
 	public MagicItem(ItemStack item, ItemSuffix suffix) {
