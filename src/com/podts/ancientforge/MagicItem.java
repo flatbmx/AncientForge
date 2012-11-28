@@ -17,7 +17,7 @@ public class MagicItem extends NamedItem {
 		Material[] itemids = {Material.DIAMOND_SWORD,Material.DIAMOND_AXE,
 				Material.DIAMOND_HELMET,Material.DIAMOND_CHESTPLATE,Material.DIAMOND_LEGGINGS,Material.DIAMOND_BOOTS,
 				Material.IRON_SWORD,Material.IRON_AXE,Material.IRON_HELMET,Material.IRON_CHESTPLATE,Material.IRON_LEGGINGS,
-				Material.IRON_BOOTS};
+				Material.IRON_BOOTS,Material.BOW};
 		
 		CraftItemStack stack = new CraftItemStack( itemids[P.getRandom().nextInt(itemids.length)] );
 		
