@@ -166,6 +166,8 @@ public class Effects {
 		bumpArmormodifier(other.getArmormodifier());
 		bumpFindmagicitems(other.getFindmagicitems());
 		
+		bumpWalkSpeed(other.getWalkspeed());
+		
 	}
 	
 	public void deduct(Effects other) {
@@ -176,6 +178,8 @@ public class Effects {
 		bumpArmorincrease(other.getArmorincrease()*-1);
 		bumpArmormodifier(other.getArmormodifier()*-1);
 		bumpFindmagicitems(other.getFindmagicitems()*-1);
+		
+		bumpWalkSpeed(other.getWalkspeed()*-1);
 		
 	}
 	
