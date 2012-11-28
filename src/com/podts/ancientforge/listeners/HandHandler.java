@@ -37,6 +37,8 @@ public class HandHandler implements Listener {
 			if (!(name.contains("sword") || name.contains("axe") || name.contains("bow") || name.contains("pickaxe") || name.contains("shovel")))
 				return;
 			
+			//
+			
 			// Add new items effects to player.
 			NamedItem newitem = new NamedItem((CraftItemStack) bukkitplayer.getInventory().getContents()[newslot]);
 			
