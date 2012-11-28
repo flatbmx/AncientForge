@@ -262,7 +262,6 @@ public class NamedItem {
 		net.minecraft.server.ItemStack stack = itemstack.getHandle();
         NBTTagCompound tag = stack.tag;
         if (tag == null) {
-        	System.out.println("created tag compound.");
         	tag = new NBTTagCompound();
             tag.setCompound("display", new NBTTagCompound());
             stack.tag = tag;
