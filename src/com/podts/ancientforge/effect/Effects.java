@@ -154,6 +154,8 @@ public class Effects {
 			item.addLore(ChatColor.BLUE + "Armor + : " + armormodifier*100 + "%");
 		if (findmagicitems != 0)
 			item.addLore(ChatColor.GOLD + "Magic Drop Rate + : " + findmagicitems*100 + "%");
+		if (walkspeed != 0)
+			item.addLore(ChatColor.YELLOW + "Speed + : " + walkspeed);
 		
 	}
 	
