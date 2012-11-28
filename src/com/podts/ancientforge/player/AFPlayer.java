@@ -9,6 +9,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import com.podts.ancientforge.MagicItem;
 import com.podts.ancientforge.NamedItem;
+import com.podts.ancientforge.P;
 import com.podts.ancientforge.effect.AFPotionEffect;
 import com.podts.ancientforge.effect.Effects;
 
@@ -50,7 +51,39 @@ public class AFPlayer {
 		this.weapon = item;
 	}
 	
-	public void updatePotionEffects() {
+	public void resetEffects() {
+		effects = new Effects();
+		removePotionEffects();
+	}
+	
+	public void updateEffects() {
+		
+		P.getPluginLogger().info("updating effects.");
+		
+		CraftItemStack hand = (CraftItemStack) getBukkitPlayer().getItemInHand();
+		
+		if (hand != null) {
+			
+			if (NamedItem.isPluginItem(hand)) {
+				
+				NamedItem ni = new NamedItem(hand);
+				
+				String name = ni.getName().toLowerCase();
+				
+				if (!(name.contains("sword") || name.contains("axe") || name.contains("bow") || name.contains("pickaxe") || name.contains("shovel")))
+					return;
+				
+				if (ni.containsPrefix() || ni.containsSuffix()) {
+					
+					MagicItem magicitem = new MagicItem(ni);
+					weapon = magicitem;
+					effects.merge(magicitem.getEffects());
+					
+				}
+				
+			}
+			
+		}
 		
 		removePotionEffects();
 		
@@ -58,7 +91,6 @@ public class AFPlayer {
 			AFPotionEffect e = new AFPotionEffect(PotionEffectType.SPEED, (int) getEffects().getWalkspeed());
 			getBukkitPlayer().addPotionEffect(e);
 			potioneffects.put(e.getName(), e);
-			
 		}
 		
 	}
@@ -82,26 +114,6 @@ public class AFPlayer {
 		this.equipment = new HashMap<Integer,NamedItem>();
 		this.potioneffects = new HashMap<String, AFPotionEffect>();
 		players.put(this.getBukkitPlayer().getName(), this);
-		
-		CraftItemStack hand = (CraftItemStack) getBukkitPlayer().getItemInHand();
-		
-		if (hand != null) {
-			
-			if (NamedItem.isPluginItem(hand)) {
-				
-				NamedItem ni = new NamedItem(hand);
-				
-				if (ni.containsPrefix() || ni.containsSuffix()) {
-					
-					MagicItem magicitem = new MagicItem(ni);
-					weapon = magicitem;
-					effects.merge(magicitem.getEffects());
-					
-				}
-				
-			}
-			
-		}
 		
 		for (int i=0; i < getBukkitPlayer().getInventory().getArmorContents().length; i++) {
 			
@@ -135,7 +147,7 @@ public class AFPlayer {
 			
 		}
 		
-		updatePotionEffects();
+		updateEffects();
 		
 	}
 	

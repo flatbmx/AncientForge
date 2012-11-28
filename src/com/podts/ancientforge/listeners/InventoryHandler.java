@@ -9,8 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.enchantment.PrepareItemEnchantEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryType;
-import org.bukkit.inventory.AnvilInventory;
 import org.bukkit.inventory.ItemStack;
 
 import com.podts.ancientforge.MagicItem;
@@ -30,25 +28,77 @@ public class InventoryHandler implements Listener {
 		
 	}
 	
+	// TODO handle equipment changes.
+	
 	@EventHandler
 	public void OnInventoryClickEvent(InventoryClickEvent event) {
 		
-		if ( !(event.getInventory().getType().equals(InventoryType.ANVIL) ) )
-			return;
+		Player p = (Player) event.getWhoClicked();
+		AFPlayer afp = AFPlayer.getPlayer(p.getName());
 		
-		if ( !(event.getInventory() instanceof AnvilInventory) )
-			return;
+		switch (event.getInventory().getType()) {
 		
-		if (event.getSlot() != 9)
-			return;
+		case ANVIL:
+			if (event.getSlot() != 9)
+				return;
+			
+			if (event.getCurrentItem().getType().equals(Material.AIR))
+				return;
+			
+			if (NamedItem.isPluginItem((CraftItemStack) event.getCurrentItem())) {
+				event.setCancelled(true);
+				p.sendMessage(ChatColor.DARK_RED + "You cannot repair this item.");
+			}
+			break;
+			
+		case CRAFTING:
+			if (!(event.getSlot() >= 36 && event.getSlot() <= 39))
+				break;
+			if (event.getCursor().equals(Material.AIR) && event.getCurrentItem().equals(Material.AIR))
+				break;
+			CraftItemStack stack;
+			
+			if ( event.getCurrentItem().getType().equals(Material.AIR) && !event.getCursor().getType().equals(Material.AIR) ) {
+				// Deposit
+				stack = (CraftItemStack) event.getCursor();
+				if (NamedItem.isPluginItem(stack)) {
+					
+					NamedItem ni = new NamedItem(stack);
+					
+					if (ni.isMagical()) {
+						
+						MagicItem mi = new MagicItem(ni);
+						afp.getEffects().merge(mi.getEffects());
+					}
+					
+				}
+			}
+			else {
+				// Withdraw
+				stack = (CraftItemStack) event.getCurrentItem();
+				if (NamedItem.isPluginItem(stack)) {
+					
+					NamedItem ni = new NamedItem(stack);
+					
+					if (ni.isMagical()) {
+						
+						MagicItem mi = new MagicItem(ni);
+						afp.getEffects().deduct(mi.getEffects());
+					}
+					
+				}
+			}
+			p.sendMessage(event.getCurrentItem().getType().name());
+			p.sendMessage(event.getCursor().getType().name());
+			afp.updateEffects();
+			break;
+			
+		case PLAYER:
+			break;
+			
+		default:
+			break;
 		
-		if (event.getCurrentItem().getType().equals(Material.AIR))
-			return;
-		
-		if (NamedItem.isPluginItem((CraftItemStack) event.getCurrentItem())) {
-			event.setCancelled(true);
-			Player p = (Player) event.getWhoClicked();
-			p.sendMessage(ChatColor.DARK_RED + "You cannot repair this item.");
 		}
 		
 	}

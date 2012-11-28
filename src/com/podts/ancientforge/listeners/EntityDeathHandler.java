@@ -17,36 +17,48 @@ public class EntityDeathHandler implements Listener {
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent event) {
 		
-		if (event.getEntity() instanceof Player)
-			return;
-		
-		if (!(event.getEntity() instanceof Monster))
-			return;
-		
-		if (!(event.getEntity().getKiller() instanceof Player))
-			return;
-		
-		if (event.getEntity().getKiller() == null)
-			return;
-		
-		Monster monster = (Monster) event.getEntity();
-		
-		Player bukkitkiller = monster.getKiller();
-		
-		AFPlayer afp = AFPlayer.getPlayer(bukkitkiller.getName());
-		
-		float droprate = .02f;
-		
-		if (monster instanceof Wither)
-			droprate = .3f;
-		
-		if (P.getRandom().nextFloat() + afp.getEffects().getFindmagicitems() > 1-droprate ) {
+		if (event.getEntity() instanceof Player) {
 			
-			MagicItem item = MagicItem.getRandomeMagicItem();
-			Item worlditem = monster.getWorld().dropItemNaturally(monster.getLocation(), item.getItemStack());
-			worlditem.setItemStack(item.getItemStack());
+			Player player = (Player) event.getEntity();
+			
+			AFPlayer afp = AFPlayer.getPlayer(player.getName());
+			
+			afp.resetEffects();
 			
 		}
+		else {
+			
+			if (!(event.getEntity() instanceof Monster))
+				return;
+			
+			if (!(event.getEntity().getKiller() instanceof Player))
+				return;
+			
+			if (event.getEntity().getKiller() == null)
+				return;
+			
+			Monster monster = (Monster) event.getEntity();
+			
+			Player bukkitkiller = monster.getKiller();
+			
+			AFPlayer afp = AFPlayer.getPlayer(bukkitkiller.getName());
+			
+			float droprate = .02f;
+			
+			if (monster instanceof Wither)
+				droprate = .3f;
+			
+			if (P.getRandom().nextFloat() + afp.getEffects().getFindmagicitems() > 1-droprate ) {
+				
+				MagicItem item = MagicItem.getRandomeMagicItem();
+				Item worlditem = monster.getWorld().dropItemNaturally(monster.getLocation(), item.getItemStack());
+				worlditem.setItemStack(item.getItemStack());
+				
+			}
+			
+		}
+		
+		
 		
 	}
 	
