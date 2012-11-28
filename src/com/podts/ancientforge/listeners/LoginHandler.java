@@ -11,12 +11,7 @@ public class LoginHandler implements Listener {
 	@EventHandler
     public void normalLogin(PlayerJoinEvent event) {
         
-		try {
-			new AFPlayer(event.getPlayer());
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+		new AFPlayer(event.getPlayer());
 		
     }
 	

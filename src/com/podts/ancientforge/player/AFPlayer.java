@@ -5,9 +5,12 @@ import java.util.HashMap;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.podts.ancientforge.MagicItem;
 import com.podts.ancientforge.NamedItem;
+import com.podts.ancientforge.effect.AFPotionEffect;
 import com.podts.ancientforge.effect.Effects;
 
 public class AFPlayer {
@@ -45,6 +48,27 @@ public class AFPlayer {
 	
 	public void setWeapon(MagicItem item) {
 		this.weapon = item;
+	}
+	
+	public void updatePotionEffects() {
+		
+		removePotionEffects();
+		
+		if (getEffects().getWalkspeed() > 0)
+			getBukkitPlayer().addPotionEffect(new AFPotionEffect(PotionEffectType.SPEED, (int) getEffects().getWalkspeed()));
+		
+	}
+	
+	public void removePotionEffects() {
+		
+		for (PotionEffect e : getBukkitPlayer().getActivePotionEffects()) {
+			
+			if (e instanceof AFPotionEffect) {
+				getBukkitPlayer().removePotionEffect(e.getType());
+			}
+			
+		}
+		
 	}
 	
 	public AFPlayer(Player p) {
@@ -105,6 +129,8 @@ public class AFPlayer {
 			}
 			
 		}
+		
+		updatePotionEffects();
 		
 	}
 	

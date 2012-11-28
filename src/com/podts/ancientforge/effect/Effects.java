@@ -15,7 +15,21 @@ public class Effects {
 	private float armorleft;
 	private float armormodifier;
 	private float findmagicitems;
-
+	
+	private float walkspeed;
+	
+	public float getWalkspeed() {
+		return walkspeed;
+	}
+	
+	public void bumpWalkSpeed(float walkspeed) {
+		this.walkspeed += walkspeed;
+	}
+	
+	public void setWalkspeed(float walkspeed) {
+		this.walkspeed = walkspeed;
+	}
+	
 	public float getLifesteal() {
 		return lifesteal;
 	}

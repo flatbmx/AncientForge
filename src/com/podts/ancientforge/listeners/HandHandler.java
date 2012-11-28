@@ -15,15 +15,16 @@ public class HandHandler implements Listener {
 	@EventHandler
 	public void onHeldEvent(PlayerItemHeldEvent event) {
 		
-		try {
-		
 		Player bukkitplayer = event.getPlayer();
 		AFPlayer afp = AFPlayer.getPlayer(bukkitplayer.getName());
 		int newslot = event.getNewSlot();
 		
+		boolean updatepots = false;
+		
 		if (afp.getWeaopn() != null) {
 			afp.getEffects().deduct(afp.getWeaopn().getEffects());
 			afp.setWeapon(null);
+			updatepots = true;
 		}
 		
 		if (NamedItem.isPluginItem((CraftItemStack) bukkitplayer.getInventory().getContents()[newslot])) {
@@ -38,14 +39,14 @@ public class HandHandler implements Listener {
 				magicitem.update();
 				afp.setWeapon(magicitem);
 				afp.getEffects().merge(afp.getWeaopn().getEffects());
+				updatepots = true;
 				
 			}
 			
 		}
 		
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		if (updatepots)
+			afp.updatePotionEffects();
 		
 	}
 	
