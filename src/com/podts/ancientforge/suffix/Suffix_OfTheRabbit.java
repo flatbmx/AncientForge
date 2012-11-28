@@ -8,7 +8,7 @@ public class Suffix_OfTheRabbit extends ItemSuffix {
 
 	public Suffix_OfTheRabbit() {
 		super("Of The Rabbit", ChatColor.YELLOW);
-		getEffects().setWalkspeed(2);
+		getEffects().setWalkspeed(2f);
 	}
 
 }

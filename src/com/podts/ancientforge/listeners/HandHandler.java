@@ -32,7 +32,7 @@ public class HandHandler implements Listener {
 			
 			ItemStack i = bukkitplayer.getInventory().getContents()[newslot];
 			
-			String name = i.getType().toString().toLowerCase();
+			String name = i.getType().name().toLowerCase();
 			
 			if (!(name.contains("sword") || name.contains("axe") || name.contains("bow") || name.contains("pickaxe") || name.contains("shovel")))
 				return;

@@ -114,11 +114,6 @@ public class AFPlayer {
 				
 				if (NamedItem.isPluginItem((CraftItemStack) item)) {
 					
-					String name = item.getType().name().toLowerCase();
-					
-					if (!(name.contains("sword") || name.contains("axe") || name.contains("bow") || name.contains("pickaxe") || name.contains("shovel")))
-						return;
-					
 					NamedItem nameditem = new NamedItem(item);
 					
 					if (nameditem.containsPrefix() || nameditem.containsSuffix()) {
