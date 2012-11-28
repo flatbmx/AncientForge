@@ -5,7 +5,6 @@ import java.util.HashMap;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import com.podts.ancientforge.MagicItem;
@@ -29,6 +28,7 @@ public class AFPlayer {
 	private Effects effects;
 	private MagicItem weapon;
 	private HashMap<Integer,NamedItem> equipment;
+	private HashMap<String, AFPotionEffect> potioneffects;
 	
 	public HashMap<Integer,NamedItem> getEquipment() {
 		return equipment;
@@ -54,14 +54,18 @@ public class AFPlayer {
 		
 		removePotionEffects();
 		
-		if (getEffects().getWalkspeed() > 0)
-			getBukkitPlayer().addPotionEffect(new AFPotionEffect(PotionEffectType.SPEED, (int) getEffects().getWalkspeed()));
+		if (getEffects().getWalkspeed() > 0) {
+			AFPotionEffect e = new AFPotionEffect(PotionEffectType.SPEED, (int) getEffects().getWalkspeed());
+			getBukkitPlayer().addPotionEffect(e);
+			potioneffects.put(e.getName(), e);
+			
+		}
 		
 	}
 	
 	public void removePotionEffects() {
 		
-		for (PotionEffect e : getBukkitPlayer().getActivePotionEffects()) {
+		for (AFPotionEffect e : potioneffects.values()) {
 			
 			if (e instanceof AFPotionEffect) {
 				getBukkitPlayer().removePotionEffect(e.getType());
@@ -76,6 +80,7 @@ public class AFPlayer {
 		this.bukkitplayer = p;
 		this.effects = new Effects();
 		this.equipment = new HashMap<Integer,NamedItem>();
+		this.potioneffects = new HashMap<String, AFPotionEffect>();
 		players.put(this.getBukkitPlayer().getName(), this);
 		
 		CraftItemStack hand = (CraftItemStack) getBukkitPlayer().getItemInHand();

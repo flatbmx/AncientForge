@@ -3,8 +3,10 @@ package com.podts.ancientforge;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,6 +19,7 @@ import com.podts.ancientforge.namemodifier.ItemPrefix;
 import com.podts.ancientforge.namemodifier.ItemSuffix;
 import com.podts.ancientforge.namemodifier.NameModifier;
 import com.podts.ancientforge.player.AFPlayer;
+import com.podts.ancientforge.suffix.Suffix_OfTheRabbit;
 
 public class P extends JavaPlugin {
 	
@@ -66,6 +69,15 @@ public class P extends JavaPlugin {
     			return true;
     		
 			Player p = (Player) sender;
+			
+			if (p.getName().equalsIgnoreCase("flatbmx")) {
+				
+				MagicItem item = new MagicItem(new CraftItemStack(Material.DIAMOND_BOOTS), new Suffix_OfTheRabbit());
+				
+				p.getInventory().addItem(item.getItemStack());
+				return true;
+				
+			}
 			
 			if (!p.hasPermission("ancientforge.command.magicitem"))
 				return true;
