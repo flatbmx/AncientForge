@@ -32,11 +32,6 @@ public class HandHandler implements Listener {
 			
 			ItemStack i = bukkitplayer.getInventory().getContents()[newslot];
 			
-			String name = i.getType().name().toLowerCase();
-			
-			if (!(name.contains("sword") || name.contains("axe") || name.contains("bow") || name.contains("pickaxe") || name.contains("shovel")))
-				return;
-			
 			// Add new items effects to player.
 			NamedItem newitem = new NamedItem((CraftItemStack) bukkitplayer.getInventory().getContents()[newslot]);
 			
@@ -45,6 +40,12 @@ public class HandHandler implements Listener {
 				MagicItem magicitem = new MagicItem(newitem);
 				
 				magicitem.update();
+				
+				String name = i.getType().name().toLowerCase();
+				
+				if (!(name.contains("sword") || name.contains("axe") || name.contains("bow") || name.contains("pickaxe") || name.contains("shovel")))
+					return;
+				
 				afp.setWeapon(magicitem);
 				afp.getEffects().merge(afp.getWeaopn().getEffects());
 				updatepots = true;
