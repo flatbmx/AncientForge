@@ -34,6 +34,8 @@ public class InventoryHandler implements Listener {
 	@EventHandler
 	public void OnInventoryClickEvent(InventoryClickEvent event) {
 		
+		try {
+		
 		Player p = (Player) event.getWhoClicked();
 		AFPlayer afp = AFPlayer.getPlayer(p.getName());
 		
@@ -89,31 +91,24 @@ public class InventoryHandler implements Listener {
 						
 					}
 				}
-				p.sendMessage(event.getCurrentItem().getType().name());
-				p.sendMessage(event.getCursor().getType().name());
 				afp.updateEffects();
 			}
-			else if (event.getSlot() > -1 && event.getSlot() < 9) {
+			else if (event.getSlot() == afp.getHandSlot()) {
 				// Quick Bar
 				if (afp.getWeapon() != null) {
-					if (event.getSlot() == afp.getHandSlot()) {
-						// Player is picking up weapon, deduct effects.
-						afp.getEffects().deduct(afp.getWeapon().getEffects());
-						afp.setWeapon(null);
-						afp.updateWeaponEffects();
-					}
+					// Player is picking up weapon, deduct effects.
+					afp.getEffects().deduct(afp.getWeapon().getEffects());
+					afp.setWeapon(null);
+					afp.updateWeaponEffects();
 				}
 				else {
 					
-					if (!event.getCursor().getType().equals(Material.AIR)) {
-						// Picking up weapon.
-						afp.getEffects().deduct(afp.getWeapon().getEffects());
-						afp.setWeapon(null);
+					if (event.getCursor().getType().equals(Material.AIR)) {
+						// Picking up item, its not a weapon so dont worry.
+						break;
 					}
 					else {
-						// Replacing weapon with something else.
-						afp.getEffects().deduct(afp.getWeapon().getEffects());
-						afp.setWeapon(null);
+						// Replacing handslot with something else.
 						
 						if (NamedItem.isPluginItem((CraftItemStack) event.getCursor())) {
 							
@@ -122,9 +117,9 @@ public class InventoryHandler implements Listener {
 							if (ni.isMagical()) {
 								
 								MagicItem mi = new MagicItem(ni);
-								
 								if (mi.isWeapon()) {
 									afp.setWeapon(mi);
+									afp.updateWeaponEffects();
 								}
 								
 							}
@@ -132,7 +127,6 @@ public class InventoryHandler implements Listener {
 						}
 						
 					}
-					afp.updateWeaponEffects();
 					
 				}
 				
@@ -149,6 +143,10 @@ public class InventoryHandler implements Listener {
 		default:
 			break;
 		
+		}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		
 	}

@@ -1,5 +1,5 @@
 name: AncientForge
-version: 0.10
+version: 0.11
 main: com.podts.ancientforge.P
 author: [flatbmx]
 softdepend: [PermissionsEx, Essentials]

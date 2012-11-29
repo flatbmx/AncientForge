@@ -64,7 +64,7 @@ public class MagicItem extends NamedItem {
 	
 	public boolean isWeapon() {
 		
-		String name = getName();
+		String name = getName().toLowerCase();
 		
 		if ((name.contains("sword") || name.contains("axe") || name.contains("bow") || name.contains("pickaxe") || name.contains("shovel"))) {
 			return true;

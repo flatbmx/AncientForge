@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemHeldEvent;
-import org.bukkit.inventory.ItemStack;
 
 import com.podts.ancientforge.MagicItem;
 import com.podts.ancientforge.NamedItem;
@@ -28,8 +27,6 @@ public class HandHandler implements Listener {
 		
 		if (NamedItem.isPluginItem((CraftItemStack) bukkitplayer.getInventory().getContents()[newslot])) {
 			
-			ItemStack i = bukkitplayer.getInventory().getContents()[newslot];
-			
 			// Add new items effects to player.
 			NamedItem newitem = new NamedItem((CraftItemStack) bukkitplayer.getInventory().getContents()[newslot]);
 			
@@ -39,10 +36,8 @@ public class HandHandler implements Listener {
 				
 				magicitem.update();
 				
-				String name = i.getType().name().toLowerCase();
-				
-				if (!(name.contains("sword") || name.contains("axe") || name.contains("bow") || name.contains("pickaxe") || name.contains("shovel"))) {
-					
+				if (!magicitem.isWeapon()) {
+					afp.setWeapon(null);
 				}
 				else {
 					afp.setWeapon(magicitem);
