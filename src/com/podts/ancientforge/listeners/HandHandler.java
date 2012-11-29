@@ -41,7 +41,6 @@ public class HandHandler implements Listener {
 				}
 				else {
 					afp.setWeapon(magicitem);
-					bukkitplayer.sendMessage("set weapom.");
 				}
 				
 			}
