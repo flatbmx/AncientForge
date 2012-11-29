@@ -19,13 +19,11 @@ public class HandHandler implements Listener {
 		Player bukkitplayer = event.getPlayer();
 		AFPlayer afp = AFPlayer.getPlayer(bukkitplayer.getName());
 		int newslot = event.getNewSlot();
+		afp.setHandSlot(newslot);
 		
-		boolean updateeffects = false;
-		
-		if (afp.getWeaopn() != null) {
-			afp.getEffects().deduct(afp.getWeaopn().getEffects());
+		if (afp.getWeapon() != null) {
+			afp.getEffects().deduct(afp.getWeapon().getEffects());
 			afp.setWeapon(null);
-			updateeffects = true;
 		}
 		
 		if (NamedItem.isPluginItem((CraftItemStack) bukkitplayer.getInventory().getContents()[newslot])) {
@@ -43,19 +41,19 @@ public class HandHandler implements Listener {
 				
 				String name = i.getType().name().toLowerCase();
 				
-				if (!(name.contains("sword") || name.contains("axe") || name.contains("bow") || name.contains("pickaxe") || name.contains("shovel")))
-					return;
-				
-				afp.setWeapon(magicitem);
-				afp.getEffects().merge(afp.getWeaopn().getEffects());
-				updateeffects = true;
+				if (!(name.contains("sword") || name.contains("axe") || name.contains("bow") || name.contains("pickaxe") || name.contains("shovel"))) {
+					
+				}
+				else {
+					afp.setWeapon(magicitem);
+					bukkitplayer.sendMessage("set weapom.");
+				}
 				
 			}
 			
 		}
 		
-		if (updateeffects)
-			afp.updateEffects();
+		afp.updateWeaponEffects();
 		
 	}
 	

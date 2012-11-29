@@ -30,6 +30,16 @@ public class AFPlayer {
 	private HashMap<Integer,NamedItem> equipment;
 	private HashMap<String, AFPotionEffect> potioneffects;
 	
+	private int handslot;
+	
+	public int getHandSlot() {
+		return handslot;
+	}
+	
+	public void setHandSlot(int slot) {
+		this.handslot = slot;
+	}
+	
 	public HashMap<Integer,NamedItem> getEquipment() {
 		return equipment;
 	}
@@ -42,7 +52,7 @@ public class AFPlayer {
 		return effects;
 	}
 	
-	public MagicItem getWeaopn() {
+	public MagicItem getWeapon() {
 		return weapon;
 	}
 	
@@ -55,34 +65,16 @@ public class AFPlayer {
 		removePotionEffects();
 	}
 	
+	public void updateWeaponEffects() {
+		if (getWeapon() != null) {
+			effects.merge(getWeapon().getEffects());
+		}
+		updateEffects();
+	}
+	
 	public void updateEffects() {
 		
-		CraftItemStack hand = (CraftItemStack) getBukkitPlayer().getItemInHand();
-		
 		removePotionEffects();
-		
-		if (hand != null) {
-			
-			if (NamedItem.isPluginItem(hand)) {
-				
-				NamedItem ni = new NamedItem(hand);
-				
-				String name = ni.getName().toLowerCase();
-				
-				if (!(name.contains("sword") || name.contains("axe") || name.contains("bow") || name.contains("pickaxe") || name.contains("shovel")))
-					return;
-				
-				if (ni.containsPrefix() || ni.containsSuffix()) {
-					
-					MagicItem magicitem = new MagicItem(ni);
-					weapon = magicitem;
-					effects.merge(magicitem.getEffects());
-					
-				}
-				
-			}
-			
-		}
 		
 		if (getEffects().getWalkspeed() > 0) {
 			AFPotionEffect e = new AFPotionEffect(PotionEffectType.SPEED, (int) getEffects().getWalkspeed());
@@ -111,6 +103,7 @@ public class AFPlayer {
 		this.effects = new Effects();
 		this.equipment = new HashMap<Integer,NamedItem>();
 		this.potioneffects = new HashMap<String, AFPotionEffect>();
+		handslot = 0;
 		players.put(this.getBukkitPlayer().getName(), this);
 		
 		for (int i=0; i < getBukkitPlayer().getInventory().getArmorContents().length; i++) {

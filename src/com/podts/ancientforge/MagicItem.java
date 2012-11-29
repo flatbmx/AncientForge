@@ -62,6 +62,18 @@ public class MagicItem extends NamedItem {
 		constructLore();
 	}
 	
+	public boolean isWeapon() {
+		
+		String name = getName();
+		
+		if ((name.contains("sword") || name.contains("axe") || name.contains("bow") || name.contains("pickaxe") || name.contains("shovel"))) {
+			return true;
+		}
+		
+		return false;
+		
+	}
+	
 	private void constructName() {
 		String result = "";
 		result = WordUtils.capitalizeFully(getItemStack().getType().name().replaceAll("_", " "));

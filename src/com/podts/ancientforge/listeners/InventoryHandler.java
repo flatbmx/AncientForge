@@ -53,46 +53,90 @@ public class InventoryHandler implements Listener {
 			break;
 			
 		case CRAFTING:
-			if (!(event.getSlot() >= 36 && event.getSlot() <= 39))
-				break;
-			if (event.getCursor().getType().equals(Material.AIR) && event.getCurrentItem().getType().equals(Material.AIR))
-				break;
-			CraftItemStack stack;
-			
-			if ( event.getCurrentItem().getType().equals(Material.AIR) && !event.getCursor().getType().equals(Material.AIR) ) {
-				// Deposit
-				stack = (CraftItemStack) event.getCursor();
-				if (NamedItem.isPluginItem(stack)) {
-					
-					NamedItem ni = new NamedItem(stack);
-					
-					if (ni.isMagical()) {
+			if (event.getSlot() >= 36 && event.getSlot() <= 39) {
+				if (event.getCursor().getType().equals(Material.AIR) && event.getCurrentItem().getType().equals(Material.AIR))
+					break;
+				CraftItemStack stack;
+				
+				if ( event.getCurrentItem().getType().equals(Material.AIR) && !event.getCursor().getType().equals(Material.AIR) ) {
+					// Deposit
+					stack = (CraftItemStack) event.getCursor();
+					if (NamedItem.isPluginItem(stack)) {
 						
-						MagicItem mi = new MagicItem(ni);
-						afp.getEffects().merge(mi.getEffects());
+						NamedItem ni = new NamedItem(stack);
+						
+						if (ni.isMagical()) {
+							
+							MagicItem mi = new MagicItem(ni);
+							afp.getEffects().merge(mi.getEffects());
+							
+						}
 						
 					}
-					
 				}
-			}
-			else {
-				// Withdraw
-				stack = (CraftItemStack) event.getCurrentItem();
-				if (NamedItem.isPluginItem(stack)) {
-					
-					NamedItem ni = new NamedItem(stack);
-					
-					if (ni.isMagical()) {
+				else {
+					// Withdraw
+					stack = (CraftItemStack) event.getCurrentItem();
+					if (NamedItem.isPluginItem(stack)) {
 						
-						MagicItem mi = new MagicItem(ni);
-						afp.getEffects().deduct(mi.getEffects());
+						NamedItem ni = new NamedItem(stack);
+						
+						if (ni.isMagical()) {
+							
+							MagicItem mi = new MagicItem(ni);
+							afp.getEffects().deduct(mi.getEffects());
+						}
+						
 					}
+				}
+				p.sendMessage(event.getCurrentItem().getType().name());
+				p.sendMessage(event.getCursor().getType().name());
+				afp.updateEffects();
+			}
+			else if (event.getSlot() > -1 && event.getSlot() < 9) {
+				// Quick Bar
+				if (afp.getWeapon() != null) {
+					if (event.getSlot() == afp.getHandSlot()) {
+						// Player is picking up weapon, deduct effects.
+						afp.getEffects().deduct(afp.getWeapon().getEffects());
+						afp.setWeapon(null);
+						afp.updateWeaponEffects();
+					}
+				}
+				else {
+					
+					if (!event.getCursor().getType().equals(Material.AIR)) {
+						// Picking up weapon.
+						afp.getEffects().deduct(afp.getWeapon().getEffects());
+						afp.setWeapon(null);
+					}
+					else {
+						// Replacing weapon with something else.
+						afp.getEffects().deduct(afp.getWeapon().getEffects());
+						afp.setWeapon(null);
+						
+						if (NamedItem.isPluginItem((CraftItemStack) event.getCursor())) {
+							
+							NamedItem ni = new NamedItem(event.getCursor());
+							
+							if (ni.isMagical()) {
+								
+								MagicItem mi = new MagicItem(ni);
+								
+								if (mi.isWeapon()) {
+									afp.setWeapon(mi);
+								}
+								
+							}
+							
+						}
+						
+					}
+					afp.updateWeaponEffects();
 					
 				}
+				
 			}
-			p.sendMessage(event.getCurrentItem().getType().name());
-			p.sendMessage(event.getCursor().getType().name());
-			afp.updateEffects();
 			break;
 			
 		case PLAYER:
