@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -21,11 +22,16 @@ import com.podts.ancientforge.player.AFPlayer;
 public class P extends JavaPlugin {
 	
 	private static P instance;
+	private static FileConfiguration config;
 	private static Logger logger;
 	private static Random random;
 	
 	public static P getPluginInstance() {
 		return instance;
+	}
+	
+	public static FileConfiguration getConfigFile() {
+		return config;
 	}
 	
 	public static Logger getPluginLogger() {
@@ -41,6 +47,15 @@ public class P extends JavaPlugin {
         
 		instance = this;
 		logger = getLogger();
+		config = this.getConfig();
+		
+		config.addDefault("ItemDropRate-Mobs", .03f);
+		config.addDefault("ItemDropRate-Wither", .3f);
+		
+		config.options().copyDefaults(true);
+		saveConfig();
+		
+		
 		random = new Random();
 		getServer().getPluginManager().registerEvents(new LoginHandler(), this);
 		getServer().getPluginManager().registerEvents(new DamageHandler(), this);

@@ -92,6 +92,7 @@ public class MagicItem extends NamedItem {
 	
 	private void mergeEffects() {
 		effects = new Effects();
+		update();
 		constructModifiers();
 		if (hasPrefix()) {
 			effects.merge(prefix.getEffects());

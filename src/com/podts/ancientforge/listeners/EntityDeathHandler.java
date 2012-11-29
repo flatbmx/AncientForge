@@ -43,10 +43,10 @@ public class EntityDeathHandler implements Listener {
 			
 			AFPlayer afp = AFPlayer.getPlayer(bukkitkiller.getName());
 			
-			float droprate = .02f;
+			float droprate = (float) P.getConfigFile().getDouble("ItemDropRate-Mobs");
 			
 			if (monster instanceof Wither)
-				droprate = .3f;
+				droprate = (float) P.getConfigFile().getDouble("ItemDropRate-Wither");
 			
 			if (P.getRandom().nextFloat() + afp.getEffects().getFindmagicitems() > 1-droprate ) {
 				
