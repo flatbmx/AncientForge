@@ -18,6 +18,7 @@ public class NameModifier {
 		new Prefix_Bloody();
 		new Prefix_Archangels();
 		new Prefix_Degrading();
+		new Prefix_Gifted();
 		
 		new Suffix_OfTheDeciples();
 		new Suffix_OfTheReckless();
@@ -27,6 +28,7 @@ public class NameModifier {
 		new Suffix_OfTheRabbit();
 		new Suffix_OfTheFlames();
 		new Suffix_OfKings();
+		new Suffix_OfTheDivines();
 		
 	}
 	
