@@ -85,7 +85,38 @@ public class P extends JavaPlugin {
     }
 	
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String lavel, String[] args) {
+    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    	
+    	if (cmd.getLabel().equalsIgnoreCase("ancientforge")) {
+    		
+    		if (args.length > 0) {
+    			
+    			if (AFCommand.getCommand(args[0]) != null) {
+    				
+    				AFCommand command = AFCommand.getCommand(args[0]);
+    				
+    				if (command.getMinimumArguments() <= args.length-1) {
+    					
+    					String[] newargs = new String[args.length-1];
+    					
+    					for (int i=1; i<args.length; i++)
+    						newargs[i-1] = args[i];
+    					
+    					command.run(sender, newargs);
+    					
+    				}
+    				else {
+    					
+    				}
+    				
+    			}
+    			else {
+    				
+    			}
+    			
+    		}
+    		
+    	}
     	
     	if (cmd.getName().equalsIgnoreCase("magicitem")) {
     		
