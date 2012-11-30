@@ -1,0 +1,62 @@
+package com.podts.ancientforge;
+
+import java.util.HashMap;
+
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+public abstract class AFCommand {
+	
+	private static HashMap<String,AFCommand> commands;
+	
+	public static HashMap<String,AFCommand> getCommandList() {
+		return commands;
+	}
+	
+	public static AFCommand getCommand(String name) {
+		return commands.get(name);
+	}
+	
+	private String name;
+	private String usage;
+	private boolean needsplayer = true;
+	private int minimumarguments = 0;
+	
+	public String getName() {
+		return name;
+	}
+	
+	public boolean needsPlayer() {
+		return needsplayer;
+	}
+	
+	public int getMinimumArguments() {
+		return minimumarguments;
+	}
+	
+	public String getUsage() {
+		return usage;
+	}
+	
+	public void run(CommandSender sender, String[] args) {
+		
+		if (needsplayer) {
+			if ( !(sender instanceof Player) ) {
+				sender.sendMessage(ChatColor.DARK_RED + "Command requires a player, cannot be executed by console.");
+				return;
+			}
+		}
+		
+		handle(sender, args);
+		
+	}
+	
+	abstract void handle(CommandSender sender, String[] args);
+	
+	public AFCommand(String name, int minargs) {
+		this.name = name;
+		this.minimumarguments = minargs;
+	}
+	
+}
