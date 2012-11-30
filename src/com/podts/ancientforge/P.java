@@ -13,6 +13,7 @@ import com.podts.ancientforge.listeners.DamageHandler;
 import com.podts.ancientforge.listeners.EntityDeathHandler;
 import com.podts.ancientforge.listeners.HandHandler;
 import com.podts.ancientforge.listeners.InventoryHandler;
+import com.podts.ancientforge.listeners.ItemHandler;
 import com.podts.ancientforge.listeners.LoginHandler;
 import com.podts.ancientforge.namemodifier.ItemPrefix;
 import com.podts.ancientforge.namemodifier.ItemSuffix;
@@ -48,6 +49,7 @@ public class P extends JavaPlugin {
 		instance = this;
 		logger = getLogger();
 		config = this.getConfig();
+		random = new Random();
 		
 		config.addDefault("ItemDropRate-Mobs", .03f);
 		config.addDefault("ItemDropRate-Wither", .3f);
@@ -55,13 +57,12 @@ public class P extends JavaPlugin {
 		config.options().copyDefaults(true);
 		saveConfig();
 		
-		
-		random = new Random();
 		getServer().getPluginManager().registerEvents(new LoginHandler(), this);
 		getServer().getPluginManager().registerEvents(new DamageHandler(), this);
 		getServer().getPluginManager().registerEvents(new HandHandler(), this);
 		getServer().getPluginManager().registerEvents(new EntityDeathHandler(), this);
 		getServer().getPluginManager().registerEvents(new InventoryHandler(), this);
+		getServer().getPluginManager().registerEvents(new ItemHandler(), this);
 		
 		NameModifier.initModifiers();
 		getLogger().info("Loaded " + ItemPrefix.getPrefixs().size() + " Prefixs.");
@@ -76,6 +77,11 @@ public class P extends JavaPlugin {
     @Override
     public void onDisable() {
         
+    	saveConfig();
+    	AFPlayer.getPlayers().clear();
+    	instance = null;
+    	random = null;
+    	
     }
 	
     @Override

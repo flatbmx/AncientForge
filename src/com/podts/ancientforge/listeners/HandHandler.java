@@ -3,6 +3,7 @@ package com.podts.ancientforge.listeners;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 
@@ -12,7 +13,7 @@ import com.podts.ancientforge.player.AFPlayer;
 
 public class HandHandler implements Listener {
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onHeldEvent(PlayerItemHeldEvent event) {
 		
 		Player bukkitplayer = event.getPlayer();
@@ -34,14 +35,10 @@ public class HandHandler implements Listener {
 				
 				MagicItem magicitem = new MagicItem(newitem);
 				
-				magicitem.update();
-				
-				if (!magicitem.isWeapon()) {
-					afp.setWeapon(null);
-				}
-				else {
+				if (magicitem.isWeapon())
 					afp.setWeapon(magicitem);
-				}
+				else
+					afp.setWeapon(null);
 				
 			}
 			

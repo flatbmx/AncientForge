@@ -64,11 +64,21 @@ public class MagicItem extends NamedItem {
 	
 	public boolean isWeapon() {
 		
-		String name = getName().toLowerCase();
+		String name = getItemStack().getType().name().toLowerCase();
 		
 		if ((name.contains("sword") || name.contains("axe") || name.contains("bow") || name.contains("pickaxe") || name.contains("shovel"))) {
 			return true;
 		}
+		return false;
+		
+	}
+	
+	public boolean isArmor() {
+		
+		String name = getItemStack().getType().name().toLowerCase();
+		
+		if (name.contains("boots") || name.contains("leggings") || name.contains("chestplate") || name.contains("helmet"))
+			return true;
 		
 		return false;
 		
@@ -92,7 +102,6 @@ public class MagicItem extends NamedItem {
 	
 	private void mergeEffects() {
 		effects = new Effects();
-		update();
 		constructModifiers();
 		if (hasPrefix()) {
 			effects.merge(prefix.getEffects());
@@ -100,6 +109,7 @@ public class MagicItem extends NamedItem {
 		if (hasSuffix()) {
 			effects.merge(suffix.getEffects());
 		}
+		update();
 	}
 	
 	private void constructModifiers() {

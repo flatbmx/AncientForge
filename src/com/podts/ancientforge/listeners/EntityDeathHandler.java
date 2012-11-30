@@ -5,6 +5,7 @@ import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Wither;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 
@@ -14,7 +15,7 @@ import com.podts.ancientforge.player.AFPlayer;
 
 public class EntityDeathHandler implements Listener {
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void onEntityDeath(EntityDeathEvent event) {
 		
 		if (event.getEntity() instanceof Player) {

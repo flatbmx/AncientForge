@@ -2,6 +2,8 @@ package com.podts.ancientforge.player;
 
 import java.util.HashMap;
 
+import net.minecraft.server.Material;
+
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -104,7 +106,25 @@ public class AFPlayer {
 		this.equipment = new HashMap<Integer,NamedItem>();
 		this.potioneffects = new HashMap<String, AFPotionEffect>();
 		handslot = 0;
-		players.put(this.getBukkitPlayer().getName(), this);
+		
+		CraftItemStack handitem = (CraftItemStack) getBukkitPlayer().getItemInHand();
+		
+		if (!handitem.getType().equals(Material.AIR)) {
+			
+			if (NamedItem.isPluginItem(handitem)) {
+				
+				NamedItem ni = new NamedItem(handitem);
+				
+				if (ni.isMagical()) {
+					
+					MagicItem mi = new MagicItem(ni);
+					setWeapon(mi);
+					
+				}
+				
+			}
+			
+		}
 		
 		for (int i=0; i < getBukkitPlayer().getInventory().getArmorContents().length; i++) {
 			
@@ -138,7 +158,8 @@ public class AFPlayer {
 			
 		}
 		
-		updateEffects();
+		updateWeaponEffects();
+		players.put(this.getBukkitPlayer().getName(), this);
 		
 	}
 	

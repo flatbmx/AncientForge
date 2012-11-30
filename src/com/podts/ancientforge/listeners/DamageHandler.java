@@ -2,6 +2,7 @@ package com.podts.ancientforge.listeners;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
@@ -9,7 +10,7 @@ import com.podts.ancientforge.player.AFPlayer;
 
 public class DamageHandler implements Listener {
 	
-	@EventHandler
+	@EventHandler(priority = EventPriority.MONITOR)
 	public void OnEntityDamage(EntityDamageByEntityEvent event) {
 		
 		if (event.getEntity().isDead())
