@@ -11,7 +11,7 @@ public class Suffix_OfTheDivines extends ItemSuffix {
 	public Suffix_OfTheDivines() {
 		super("Of The Divines", ChatColor.GOLD);
 		getEffects().setDamgeincrease(3);
-		getEffects().setLifesteal(2);
+		getEffects().setLifesteal(.2f);
 	}
 
 }
