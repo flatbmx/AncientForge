@@ -3,12 +3,14 @@ package com.podts.ancientforge;
 import java.util.Random;
 import java.util.logging.Logger;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.podts.ancientforge.commands.Command_Stats;
 import com.podts.ancientforge.listeners.DamageHandler;
 import com.podts.ancientforge.listeners.EntityDeathHandler;
 import com.podts.ancientforge.listeners.HandHandler;
@@ -68,6 +70,8 @@ public class P extends JavaPlugin {
 		getLogger().info("Loaded " + ItemPrefix.getPrefixs().size() + " Prefixs.");
 		getLogger().info("Loaded " + ItemSuffix.getSuffixs().size() + " Suffixs.");
 		
+		new Command_Stats();
+		
 		for (Player p : getServer().getOnlinePlayers()) {
 			new AFPlayer(p);
 		}
@@ -94,6 +98,11 @@ public class P extends JavaPlugin {
     			if (AFCommand.getCommand(args[0]) != null) {
     				
     				AFCommand command = AFCommand.getCommand(args[0]);
+    				
+    				if (command == null) {
+    					sender.sendMessage(ChatColor.DARK_RED + "No AncientForge command called that.");
+    					return false;
+    				}
     				
     				if (command.getMinimumArguments() <= args.length-1) {
     					
