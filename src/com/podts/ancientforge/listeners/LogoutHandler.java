@@ -11,7 +11,7 @@ public class LogoutHandler implements Listener {
 	
 	@EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerLogout(PlayerQuitEvent event) {
-        
+		
 		AFPlayer afplayer = AFPlayer.getPlayer(event.getPlayer().getName());
 		
 		if (afplayer == null)

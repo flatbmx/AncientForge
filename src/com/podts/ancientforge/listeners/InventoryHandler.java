@@ -92,7 +92,7 @@ public class InventoryHandler implements Listener {
 			
 			if (event.getSlot() != 9)
 				return;
-
+			
 			if (event.getCurrentItem().getType().equals(Material.AIR))
 				return;
 

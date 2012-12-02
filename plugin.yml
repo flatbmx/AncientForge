@@ -1,5 +1,5 @@
 name: AncientForge
-version: 0.12
+version: 0.15
 main: com.podts.ancientforge.P
 author: [flatbmx]
 softdepend: [PermissionsEx, Essentials]
@@ -8,5 +8,3 @@ commands:
   ancientforge:
     description: Main reference command for AncientForge.
     aliases: [af]
-  magicitem:
-    description: Gives person a random magic item.

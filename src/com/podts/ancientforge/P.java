@@ -10,13 +10,14 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.podts.ancientforge.commands.Command_Stats;
+import com.podts.ancientforge.commands.*;
 import com.podts.ancientforge.listeners.DamageHandler;
 import com.podts.ancientforge.listeners.EntityDeathHandler;
 import com.podts.ancientforge.listeners.HandHandler;
 import com.podts.ancientforge.listeners.InventoryHandler;
 import com.podts.ancientforge.listeners.ItemHandler;
 import com.podts.ancientforge.listeners.LoginHandler;
+import com.podts.ancientforge.listeners.LogoutHandler;
 import com.podts.ancientforge.namemodifier.ItemPrefix;
 import com.podts.ancientforge.namemodifier.ItemSuffix;
 import com.podts.ancientforge.namemodifier.NameModifier;
@@ -60,6 +61,7 @@ public class P extends JavaPlugin {
 		saveConfig();
 		
 		getServer().getPluginManager().registerEvents(new LoginHandler(), this);
+		getServer().getPluginManager().registerEvents(new LogoutHandler(), this);
 		getServer().getPluginManager().registerEvents(new DamageHandler(), this);
 		getServer().getPluginManager().registerEvents(new HandHandler(), this);
 		getServer().getPluginManager().registerEvents(new EntityDeathHandler(), this);
@@ -71,6 +73,7 @@ public class P extends JavaPlugin {
 		getLogger().info("Loaded " + ItemSuffix.getSuffixs().size() + " Suffixs.");
 		
 		new Command_Stats();
+		new Command_RandomItem();
 		
 		for (Player p : getServer().getOnlinePlayers()) {
 			new AFPlayer(p);
@@ -82,7 +85,13 @@ public class P extends JavaPlugin {
     public void onDisable() {
         
     	saveConfig();
-    	AFPlayer.getPlayers().clear();
+    	
+    	for (AFPlayer afp : AFPlayer.getPlayers().values()) {
+    		
+    		afp.removePotionEffects();
+    		
+    	}
+    	
     	instance = null;
     	random = null;
     	
@@ -125,21 +134,6 @@ public class P extends JavaPlugin {
     			
     		}
     		
-    	}
-    	
-    	if (cmd.getName().equalsIgnoreCase("magicitem")) {
-    		
-    		if (!(sender instanceof Player))
-    			return true;
-    		
-			Player p = (Player) sender;
-			
-			MagicItem item = MagicItem.getRandomeMagicItem();
-			
-			p.getInventory().addItem(item.getItemStack());
-    		
-			return true;
-			
     	}
     	
     	return false;

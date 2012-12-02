@@ -118,7 +118,9 @@ public class AFPlayer {
 				if (ni.isMagical()) {
 					
 					MagicItem mi = new MagicItem(ni);
-					setWeapon(mi);
+					
+					if (mi.isWeapon())
+						setWeapon(mi);
 					
 				}
 				

@@ -4,6 +4,7 @@ import org.apache.commons.lang.WordUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 
 import com.podts.ancientforge.effect.Effects;
@@ -101,6 +102,14 @@ public class MagicItem extends NamedItem {
 	}
 	
 	private void mergeEffects() {
+		
+		for (Enchantment e : Enchantment.values()) {
+			
+			if (getItemStack().containsEnchantment(e))
+				getItemStack().removeEnchantment(e);
+			
+		}
+		
 		effects = new Effects();
 		constructModifiers();
 		if (hasPrefix()) {

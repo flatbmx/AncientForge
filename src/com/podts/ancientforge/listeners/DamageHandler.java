@@ -23,7 +23,16 @@ public class DamageHandler implements Listener {
 			
 			Player attacker = (Player) event.getDamager();
 			
+			if (attacker == null)
+				return;
+			
+			if (attacker.isDead())
+				return;
+			
 			AFPlayer afp = AFPlayer.getPlayer( attacker.getName() );
+			
+			if (afp == null)
+				return;
 			
 			if (afp.getEffects().getDamagemodifier() > 0) {
 				
@@ -56,11 +65,19 @@ public class DamageHandler implements Listener {
 					afp.getEffects().bumpLifestealleft((int) afp.getEffects().getLifestealleft()*-1);
 				}
 				
-				attacker.setHealth(attacker.getHealth() + iheal);
+				int heali = attacker.getHealth() + iheal;
+				if (heali > 20)
+					heali = 20;
+				if (heali < 0)
+					heali = 0;
+				attacker.setHealth(heali);
 				
 			}
 			
 		}
+		
+		if (event.getEntity() == null)
+			return;
 		
 		// If the entity that is getting hurt is a player.
 		if (event.getEntity() instanceof Player) {
